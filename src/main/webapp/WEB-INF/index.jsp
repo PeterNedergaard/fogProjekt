@@ -17,7 +17,7 @@
         <div>
             <form action="${pageContext.request.contextPath}/fc/homepagecommand" method="POST">
 
-                <%--Filters--%>
+                    <%--Filters--%>
 
                 <div class="row">
                     <div class="col-3">
@@ -136,16 +136,20 @@
                     </div>
 
 
-                    <%--Carports/products--%>
+                        <%--Carports/products--%>
 
                     <div class="col-9">
                         <div class="row" style="border-color: #cfcfcf; border-style: solid;
                         border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px">
                             <div class="col-3">
-                                <input name="viewcarport" value="1" type="image" src="${pageContext.request.contextPath}/images/carport1.png" style="width: 100%">
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="1"><img
+                                        style="width: 100%"
+                                        src="${pageContext.request.contextPath}/images/carport1.png"></button>
                             </div>
                             <div class="col-9">
-                                <h5 class="text-start">CARPORT ENKELT 3,60X5,40M CAR01H HØJ REJSNING</h5>
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="1">
+                                    <h5 class="text-start">CARPORT ENKELT 3,60X5,40M CAR01H HØJ REJSNING</h5>
+                                </button>
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-12 d-flex justify-content-end">
                                         <span class="align-bottom"><h6 style="display: inline-block; color: #696969">pr. stk.</h6></span>
@@ -159,7 +163,8 @@
                                             <div class="row align-items-center col-2">
                                                 <label for="amount1">ANTAL</label>
                                             </div>
-                                            <input style="width: 130px" type="text" class="text-center" value="1" id="amount1">
+                                            <input style="width: 130px" type="text" class="text-center" value="1"
+                                                   id="amount1">
                                         </div>
                                         <div class="d-flex justify-content-end col-3">
                                             <button type="button" class="btn btn-warning" style="width: 200px">LÆG I
@@ -174,11 +179,15 @@
                         <div class="row" style="border-color: #cfcfcf; border-style: solid;
                         border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px">
                             <div class="col-3">
-                                <input name="viewcarport" value="2" type="image" src="${pageContext.request.contextPath}/images/carport2.png" style="width: 100%">
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="2"><img
+                                        style="width: 100%"
+                                        src="${pageContext.request.contextPath}/images/carport2.png"></button>
 
                             </div>
                             <div class="col-9">
-                                <h5 class="text-start">CARPORT ENKELT 3,60X7,20M CAR01HR MED REDSKABSRUM 3,20X2,20M</h5>
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="2">
+                                    <h5 class="text-start">CARPORT ENKELT 3,60X7,20M CAR01HR MED REDSKABSRUM 3,20X2,20M</h5>
+                                </button>
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-12 d-flex justify-content-end">
                                         <span class="align-bottom"><h6 style="display: inline-block; color: #696969">pr. stk.</h6></span>
@@ -192,7 +201,8 @@
                                             <div class="row align-items-center col-2">
                                                 <label for="amount2">ANTAL</label>
                                             </div>
-                                            <input style="width: 130px" type="text" class="text-center" value="1" id="amount2">
+                                            <input style="width: 130px" type="text" class="text-center" value="1"
+                                                   id="amount2">
                                         </div>
                                         <div class="d-flex justify-content-end col-3">
                                             <button type="button" class="btn btn-warning" style="width: 200px">LÆG I
@@ -207,10 +217,15 @@
                         <div class="row" style="border-color: #cfcfcf; border-style: solid;
                         border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px">
                             <div class="col-3">
-                                <input name="viewcarport" value="3" type="image" src="${pageContext.request.contextPath}/images/carport3.png" style="width: 100%">
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="3"><img
+                                        style="width: 100%"
+                                        src="${pageContext.request.contextPath}/images/carport3.png"></button>
                             </div>
                             <div class="col-9">
-                                <h5 class="text-start">CARPORT ENKELT 3,60X8,10M CARL01HR MED REDSKABSRUM 3,05X3,20M</h5>
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="3">
+                                    <h5 class="text-start">CARPORT ENKELT 3,60X8,10M CARL01HR MED REDSKABSRUM
+                                        3,05X3,20M</h5>
+                                </button>
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-12 d-flex justify-content-end">
                                         <span class="align-bottom"><h6 style="display: inline-block; color: #696969">pr. stk.</h6></span>
@@ -224,7 +239,8 @@
                                             <div class="row align-items-center col-2">
                                                 <label for="amount3">ANTAL</label>
                                             </div>
-                                            <input style="width: 130px" type="text" class="text-center" value="1" id="amount3">
+                                            <input style="width: 130px" type="text" class="text-center" value="1"
+                                                   id="amount3">
                                         </div>
                                         <div class="d-flex justify-content-end col-3">
                                             <button type="button" class="btn btn-warning" style="width: 200px">LÆG I
@@ -239,11 +255,15 @@
                         <div class="row" style="border-color: #cfcfcf; border-style: solid;
                         border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px">
                             <div class="col-3">
-                                <input name="viewcarport" value="4" type="image" src="${pageContext.request.contextPath}/images/carport4.png" style="width: 100%">
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="4"><img
+                                        style="width: 100%"
+                                        src="${pageContext.request.contextPath}/images/carport4.png"></button>
 
                             </div>
                             <div class="col-9">
-                                <h5 class="text-start">CARPORT ENKELT 3,90X7,80M CPO01HR MED REDSKABSRUM 2,40X3,30M</h5>
+                                <button style="border-width: 0px; background-color: #e6e6e6;" type="submit" name="viewcarport" value="4">
+                                    <h5 class="text-start">CARPORT ENKELT 3,90X7,80M CPO01HR MED REDSKABSRUM 2,40X3,30M</h5>
+                                </button>
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-12 d-flex justify-content-end">
                                         <span class="align-bottom"><h6 style="display: inline-block; color: #696969">pr. stk.</h6></span>
@@ -257,7 +277,8 @@
                                             <div class="row align-items-center col-2">
                                                 <label for="amount4">ANTAL</label>
                                             </div>
-                                            <input style="width: 130px" type="text" class="text-center" value="1" id="amount4">
+                                            <input style="width: 130px" type="text" class="text-center" value="1"
+                                                   id="amount4">
                                         </div>
                                         <div class="d-flex justify-content-end col-3">
                                             <button type="button" class="btn btn-warning" style="width: 200px">LÆG I
