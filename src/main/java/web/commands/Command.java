@@ -29,6 +29,7 @@ public abstract class Command
         commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
         commands.put("homepagecommand", new HomePageCommand(""));
+        commands.put("showcarportpage", new CommandUnprotectedPage("showcarportpage"));
     }
 
     public static Command fromPath(
