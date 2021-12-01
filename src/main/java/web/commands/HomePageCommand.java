@@ -1,28 +1,41 @@
 package web.commands;
 
+import business.entities.StandardProduct;
 import business.exceptions.UserException;
+import business.services.ProductFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class HomePageCommand extends CommandUnprotectedPage {
 
+    private ProductFacade productFacade;
+
     public HomePageCommand(String pageToShow) {
         super(pageToShow);
+
+        productFacade = new ProductFacade(database);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
 
-        int viewCarPort = Integer.parseInt(request.getParameter("viewcarport"));
+        productFacade.initStandardProducts();
+
+        String widthFilterValue = request.getParameter("widthfilter");
+        String lengthFilterValue = request.getParameter("lengthfilter");
+        String removeFilters = request.getParameter("removefilters");
+
+        String viewCarPort = request.getParameter("viewcarport");
         String image = "";
         String paragraph = "";
         String title = "";
         String price = "";
 
-        if (viewCarPort > 0) {
+        if (viewCarPort != null) {
+            //Show specific carport
             switch (viewCarPort) {
-                case 1:
+                case "1":
                     image = "carport1.png";
                     price = "25.000,-";
                     title = "CARPORT ENKELT 3,60X5,40M CAR01H HØJ REJSNING";
@@ -34,7 +47,7 @@ public class HomePageCommand extends CommandUnprotectedPage {
                             "Betontagsten i sort med 30 års garanti.\n" +
                             "NB! Leveres som Byg-selv sæt - usamlet og ubehandlet!";
                     break;
-                case 2:
+                case "2":
                     image = "carport2.png";
                     price = "31.000,-";
                     title = "CARPORT ENKELT 3,60X7,20M CAR01HR MED REDSKABSRUM 3,20X2,20M";
@@ -47,7 +60,7 @@ public class HomePageCommand extends CommandUnprotectedPage {
                             "Varen kan ses udstillet i følgende afdelinger:\n" +
                             "Værebro";
                     break;
-                case 3:
+                case "3":
                     image = "carport3.png";
                     price = "33.500,-";
                     title = "CARPORT ENKELT 3,60X8,10M CARL01HR MED REDSKABSRUM\n" +
@@ -59,7 +72,7 @@ public class HomePageCommand extends CommandUnprotectedPage {
                             "Betontagsten i sort med 30 års garanti.\n" +
                             "NB! Leveres som Byg-selv sæt - usamlet og ubehandlet!";
                     break;
-                case 4:
+                case "4":
                     image = "carport4.png";
                     price = "36.000,-";
                     title = "CARPORT ENKELT 3,90X7,80M CPO01HR MED REDSKABSRUM 2,40X3,30M";
@@ -75,18 +88,50 @@ public class HomePageCommand extends CommandUnprotectedPage {
 
             }
 
-            request.getServletContext().setAttribute("image",image);
-            request.getServletContext().setAttribute("price",price);
-            request.getServletContext().setAttribute("title",title);
-            request.getServletContext().setAttribute("paragraph",paragraph);
+            request.getServletContext().setAttribute("image", image);
+            request.getServletContext().setAttribute("price", price);
+            request.getServletContext().setAttribute("title", title);
+            request.getServletContext().setAttribute("paragraph", paragraph);
 
             return REDIRECT_INDICATOR + "showcarportpage";
+        } else {
+            //Filtering
+
+            ProductFacade.filteredStandardProductsList.clear();
+
+            if (removeFilters != null) {
+
+                request.getServletContext().setAttribute("standardproductlist", ProductFacade.standardProductsList);
+                ProductFacade.filteredStandardProductsList.clear();
+
+                return REDIRECT_INDICATOR + "homepage";
+            }
+
+            for (StandardProduct sp : ProductFacade.standardProductsList) {
+                //Checks for the three scenarios of filtering
+                //width or length or width and length
+
+                if (widthFilterValue != null && lengthFilterValue == null) {
+                    if (sp.getWidth() == Integer.parseInt(widthFilterValue) * 10) {
+                        ProductFacade.filteredStandardProductsList.add(sp);
+                    }
+                }
+                else if(widthFilterValue == null && lengthFilterValue != null){
+                    if (sp.getLength() == Integer.parseInt(lengthFilterValue) * 10) {
+                        ProductFacade.filteredStandardProductsList.add(sp);
+                    }
+                }
+                else if(widthFilterValue != null && lengthFilterValue != null){
+                    if (sp.getLength() == Integer.parseInt(lengthFilterValue) * 10 && sp.getWidth() == Integer.parseInt(widthFilterValue) * 10) {
+                        ProductFacade.filteredStandardProductsList.add(sp);
+                    }
+                }
+
+            }
+
+            request.getServletContext().setAttribute("standardproductlist", ProductFacade.filteredStandardProductsList);
+
+            return REDIRECT_INDICATOR + "homepage";
         }
-
-
-
-
-
-        return REDIRECT_INDICATOR + "filteredcarports";
     }
 }

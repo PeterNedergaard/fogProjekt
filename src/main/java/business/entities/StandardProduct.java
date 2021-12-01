@@ -1,19 +1,38 @@
 package business.entities;
 
-public class StandardProducts {
+public class StandardProduct {
 
+    private int id;
     private int length;
     private int width;
     private int price;
     private String title;
     private String description;
+    private String image;
 
-    public StandardProducts(int length, int width, int price, String title, String description) {
+    public StandardProduct(int id ,int length, int width, int price, String title, String description) {
+        this.id = id;
         this.length = length;
         this.width = width;
         this.price = price;
         this.title = title;
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getLength() {
