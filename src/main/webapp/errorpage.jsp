@@ -21,9 +21,9 @@
 
             <c:if test="${pageContext.errorData.statusCode == 401 }">
                 <h4 style="color:darkred;font-size: larger">
-                    Attempt to access a protected resource without being authenticated.
-                    <a href="loginpage">Please login first!</a>
-                </h4>.
+                    Du skal være logget ind for at aflægge en ordre
+                    <a href="loginpage">Log venligst ind først</a>
+                </h4>
 
                 </p>
             </c:if>

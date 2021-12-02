@@ -26,6 +26,10 @@ public class HomePageCommand extends CommandUnprotectedPage {
         String lengthFilterValue = request.getParameter("lengthfilter");
         String removeFilters = request.getParameter("removefilters");
 
+        String idToAddBasket = request.getParameter("addtobasket");
+
+        String amount = request.getParameter("amount" + idToAddBasket);
+
         String viewCarPort = request.getParameter("viewcarport");
         String image = "";
         String paragraph = "";
@@ -94,7 +98,7 @@ public class HomePageCommand extends CommandUnprotectedPage {
             request.getServletContext().setAttribute("paragraph", paragraph);
 
             return REDIRECT_INDICATOR + "showcarportpage";
-        } else {
+        } else if(widthFilterValue != null && idToAddBasket == null || lengthFilterValue != null && idToAddBasket == null) {
             //Filtering
 
             ProductFacade.filteredStandardProductsList.clear();
@@ -132,6 +136,14 @@ public class HomePageCommand extends CommandUnprotectedPage {
             request.getServletContext().setAttribute("standardproductlist", ProductFacade.filteredStandardProductsList);
 
             return REDIRECT_INDICATOR + "homepage";
+
+        } else if(idToAddBasket != null){
+
+            request.getServletContext().setAttribute("idtoaddbasket", idToAddBasket);
+            request.getServletContext().setAttribute("amount", amount);
+            return REDIRECT_INDICATOR + "addtobasketcommand";
         }
+
+        return REDIRECT_INDICATOR + "homepage";
     }
 }

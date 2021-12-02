@@ -45,26 +45,37 @@
         <div>
 
             <c:if test="${sessionScope.user != null }">
-                ${sessionScope.user.email}
+                <p style="text-align: center; color: white; display: inline-block">${sessionScope.user.email}</p>
             </c:if>
 
             <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
             <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'loginpage.jsp')}"/>
             <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'registerpage.jsp')}"/>
 
+
             <c:if test="${isNotLoginPage && isNotRegisterPage}">
-            <c:if test="${sessionScope.user != null }">
-                <a type="button" class="btn btn-sm  btn-outline-light text-light"
-                   href="${pageContext.request.contextPath}/fc/logoutcommand">Logout</a>
+                <c:if test="${sessionScope.user != null }">
+                    <a type="button" class="btn btn-sm  btn-outline-light text-light"
+                       href="${pageContext.request.contextPath}/fc/logoutcommand">Logout</a>
+                </c:if>
+                <c:if test="${sessionScope.user == null }">
+                    <a type="button" class="btn btn-sm  btn-outline-light text-light"
+                       href="${pageContext.request.contextPath}/fc/loginpage">Login</a>
+                    <a type="button" class="btn btn-sm  btn-outline-light text-light"
+                       href="${pageContext.request.contextPath}/fc/registerpage">Sign up</a>
+                </c:if>
+
             </c:if>
-            <c:if test="${sessionScope.user == null }">
-                <a type="button" class="btn btn-sm  btn-outline-light text-light"
-                   href="${pageContext.request.contextPath}/fc/loginpage">Login</a>
-                <a type="button" class="btn btn-sm  btn-outline-light text-light"
-                   href="${pageContext.request.contextPath}/fc/registerpage">Sign up</a>
+
+            <a href="${pageContext.request.contextPath}/fc/basketcommand" style="text-decoration: none">
+                <c:if test="${sessionScope.user.role == 'customer' }">
+                <img style="border-radius: 10%" src="${pageContext.request.contextPath}/images/img_1.png" width="35"
+                     height="35">
+                <p style="color: white; display: inline-block">(${sessionScope.user.myBasketList.size()})</p>
             </c:if>
+            </a>
+
         </div>
-        </c:if>
     </header>
 </div>
 

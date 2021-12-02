@@ -1,5 +1,7 @@
 package business.entities;
 
+import java.util.ArrayList;
+
 public class User
 {
 
@@ -15,9 +17,19 @@ public class User
     private String password; // Should be hashed and secured
     private String role;
 
+    private ArrayList<StandardProduct> myBasketList = new ArrayList<>();
+
     public String getEmail()
     {
         return email;
+    }
+
+    public ArrayList<StandardProduct> getMyBasketList() {
+        return myBasketList;
+    }
+
+    public void setMyBasketList(ArrayList<StandardProduct> myBasketList) {
+        this.myBasketList = myBasketList;
     }
 
     public void setEmail(String email)

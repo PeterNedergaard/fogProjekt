@@ -32,6 +32,11 @@ public abstract class Command
         commands.put("showcarportpage", new CommandUnprotectedPage("showcarportpage"));
         commands.put("indexcommand", new IndexCommand(""));
         commands.put("homepage", new CommandUnprotectedPage("homepage"));
+        commands.put("basketcommand", new BasketCommand("","customer"));
+        commands.put("basketpage", new CommandProtectedPage("basketpage","customer"));
+        commands.put("addtobasketcommand", new AddToBasketCommand("","customer"));
+        commands.put("buyordeletecommand", new BuyOrDeleteCommand("","customer"));
+        commands.put("customflatroof", new CommandProtectedPage("customflatroof","customer"));
     }
 
     public static Command fromPath(

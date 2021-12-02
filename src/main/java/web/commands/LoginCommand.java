@@ -27,13 +27,22 @@ public class LoginCommand extends CommandUnprotectedPage
         try {
         User user = userFacade.login(email, password);
 
+        UserFacade.currentUser = user;
+
         HttpSession session = request.getSession();
 
         session.setAttribute("user", user);
         session.setAttribute("role", user.getRole());
         session.setAttribute("email", email);
 
-        String pageToShow =  user.getRole() + "page";
+        String pageToShow = "";
+
+        if (user.getRole().equals("customer")){
+            pageToShow = "index";
+        } else if(user.getRole().equals("employee")){
+            pageToShow = "employeepage";
+        }
+
         return REDIRECT_INDICATOR + pageToShow;
         }
         catch (UserException ex)

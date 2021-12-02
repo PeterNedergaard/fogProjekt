@@ -9,6 +9,8 @@ public class UserFacade
 {
     UserMapper userMapper;
 
+    public static User currentUser;
+
     public UserFacade(Database database)
     {
         userMapper = new UserMapper(database);

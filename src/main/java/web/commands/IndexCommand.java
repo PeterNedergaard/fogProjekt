@@ -25,8 +25,6 @@ public class IndexCommand extends CommandUnprotectedPage{
         productFacade.initFilterLists();
         ProductFacade.filteredStandardProductsList.clear();
 
-        System.out.println(ProductFacade.standardProductsList);
-
         request.getServletContext().setAttribute("standardproductlist", ProductFacade.standardProductsList);
         request.getServletContext().setAttribute("widthfilterlist", ProductFacade.widthFilterList);
         request.getServletContext().setAttribute("lengthfilterlist", ProductFacade.lengthFilterList);

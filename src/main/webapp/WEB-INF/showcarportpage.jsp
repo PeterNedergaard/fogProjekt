@@ -54,16 +54,8 @@
                 </div>
             </div>
 
-            <c:if test="${sessionScope.role == 'employee' }">
-            <p style="font-size: larger">This is what you can do,
-                since your are logged in as an employee</p>
-            <p><a href="fc/employeepage">Employee Page</a>
-                </c:if>
-
-                <c:if test="${sessionScope.role == 'customer' }">
-            <p style="font-size: larger">This is what you can do, since your
-                are logged in as a customer</p>
-            <p><a href="fc/customerpage">Customer Page</a>
+                <c:if test="${sessionScope.user == null}">
+                    <p style="text-align: center; color: #ad2117">DU SKAL VÆRE LOGGET IND FOR AT LÆGGE EN BESTILLING</p>
                 </c:if>
 
         </div>
