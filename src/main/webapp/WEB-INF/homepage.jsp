@@ -152,20 +152,17 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <a href="${pageContext.request.contextPath}/fc/customflatroof">
-                                    <button class="btn"
-                                            style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
-                                        <span><b>Fladt tag</b></span>
-                                    </button>
-                                </a>
+                                <button type="submit" name="rooftype" value="flat" class="btn"
+                                        style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
+                                    Fladt tag
+                                </button>
+
                             </div>
                             <div class="col-6">
-                                <a href="${pageContext.request.contextPath}/fc/customangleroof">
-                                    <button class="btn"
-                                            style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
-                                        <span><b>Rejst tag</b></span>
-                                    </button>
-                                </a>
+                                <button type="submit" name="rooftype" value="raised" class="btn"
+                                        style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
+                                    Rejst tag
+                                </button>
                             </div>
                         </div>
 

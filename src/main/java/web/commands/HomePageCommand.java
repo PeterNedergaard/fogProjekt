@@ -28,6 +28,8 @@ public class HomePageCommand extends CommandUnprotectedPage {
 
         String idToAddBasket = request.getParameter("addtobasket");
 
+        String customRoofType = request.getParameter("rooftype");
+
         String amount = request.getParameter("amount" + idToAddBasket);
 
         String viewCarPort = request.getParameter("viewcarport");
@@ -89,6 +91,15 @@ public class HomePageCommand extends CommandUnprotectedPage {
                             "Betontagsten i sort med 30 års garanti.\n" +
                             "NB! Leveres som Byg-selv sæt - usamlet og ubehandlet!";
                     break;
+                case "5":
+                    image = "carport5.png";
+                    price = "6498,-";
+                    title = "CARPORT ENKELT 3,00X4,80M CAR01 FLADT TAG";
+                    paragraph = "3,00 x 4,80 mtr. Højde; 2,25 mtr. Trykimprægnerede stolper og stern.\n" +
+                            "Leveres med: søm, skruer, beslag og plasttrapez tag m/bundskruer.\n" +
+                            "NB! Leveres som Byg-selv sæt - usamlet, umalet og ubehandlet!";
+
+                    break;
 
             }
 
@@ -98,7 +109,7 @@ public class HomePageCommand extends CommandUnprotectedPage {
             request.getServletContext().setAttribute("paragraph", paragraph);
 
             return REDIRECT_INDICATOR + "showcarportpage";
-        } else if(widthFilterValue != null && idToAddBasket == null || lengthFilterValue != null && idToAddBasket == null) {
+        } else if(widthFilterValue != null && idToAddBasket == null || lengthFilterValue != null && idToAddBasket == null || removeFilters != null) {
             //Filtering
 
             ProductFacade.filteredStandardProductsList.clear();
@@ -142,6 +153,12 @@ public class HomePageCommand extends CommandUnprotectedPage {
             request.getServletContext().setAttribute("idtoaddbasket", idToAddBasket);
             request.getServletContext().setAttribute("amount", amount);
             return REDIRECT_INDICATOR + "addtobasketcommand";
+
+        } else if(customRoofType != null){
+
+            request.getServletContext().setAttribute("rooftype", customRoofType);
+            return REDIRECT_INDICATOR + "customproductcommand";
+
         }
 
         return REDIRECT_INDICATOR + "homepage";

@@ -28,4 +28,8 @@ public class UserFacade
         return user;
     }
 
+    public void updateUserToDb(User user){
+        userMapper.updateUserToDb(user);
+    }
+
 }

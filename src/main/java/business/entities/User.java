@@ -13,11 +13,29 @@ public class User
     }
 
     private int id; // just used to demo retrieval of autogen keys in UserMapper
+    private int orderId;
     private String email;
     private String password; // Should be hashed and secured
     private String role;
 
     private ArrayList<StandardProduct> myBasketList = new ArrayList<>();
+    private ArrayList<Order> myOrderList = new ArrayList<>();
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public ArrayList<Order> getMyOrderList() {
+        return myOrderList;
+    }
+
+    public void setMyOrderList(ArrayList<Order> myOrderList) {
+        this.myOrderList = myOrderList;
+    }
 
     public String getEmail()
     {

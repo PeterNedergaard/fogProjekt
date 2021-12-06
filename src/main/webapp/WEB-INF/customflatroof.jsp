@@ -13,12 +13,75 @@
     </jsp:attribute>
 
     <jsp:body>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6" style="padding-top: 12px; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6">
+                    <h5>Carport bredde</h5>
+                    <select style="width: 100%" name="width" id="width">
+                        <option value="" disabled selected>Vælg bredde</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
 
-        <div>
+                    <br><br>
 
-            <div class="row">
-                <div class="col-6">
-                    <button style="width: 100%"></button>
+                    <h5>Carport længde</h5>
+                    <select style="width: 100%" name="length" id="length">
+                        <option value="" disabled selected>Vælg længde</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <br><br>
+
+                    <h5>Tag</h5>
+                    <select style="width: 100%" name="roof" id="roof">
+                        <option value="" disabled selected>Vælg tag materiale</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <br><br><br>
+
+                    <h5>Redskabsrum:</h5>
+                    <p>NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet</p>
+
+                    <h5>Redskabsrum bredde</h5>
+                    <select style="width: 100%" name="shedwidth" id="shedwidth">
+                        <option value="" disabled selected>Ønsker ikke redskabsrum</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <br><br>
+
+                    <h5>Redskabsrum længde</h5>
+                    <select style="width: 100%" name="shedlength" id="shedlength">
+                        <option value="" disabled selected>Ønsker ikke redskabsrum</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <br><br><br>
+
+                    <div class="row">
+                        <div class="col-12" style="padding-left: 40%; padding-bottom: 12px">
+                            <button class="btn btn-warning">
+                                Send forespørgsel
+                            </button>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 

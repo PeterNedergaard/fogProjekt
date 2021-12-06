@@ -8,45 +8,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginCommand extends CommandUnprotectedPage
-{
+public class LoginCommand extends CommandUnprotectedPage {
     private UserFacade userFacade;
 
-    public LoginCommand(String pageToShow)
-    {
+    public LoginCommand(String pageToShow) {
         super(pageToShow);
         userFacade = new UserFacade(database);
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException
-    {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         try {
-        User user = userFacade.login(email, password);
+            User user = userFacade.login(email, password);
 
-        UserFacade.currentUser = user;
+            UserFacade.currentUser = user;
 
-        HttpSession session = request.getSession();
+            HttpSession session = request.getSession();
 
-        session.setAttribute("user", user);
-        session.setAttribute("role", user.getRole());
-        session.setAttribute("email", email);
+            session.setAttribute("user", user);
+            session.setAttribute("role", user.getRole());
+            session.setAttribute("email", email);
 
-        String pageToShow = "";
+            String pageToShow = "";
 
-        if (user.getRole().equals("customer")){
-            pageToShow = "index";
-        } else if(user.getRole().equals("employee")){
-            pageToShow = "employeepage";
-        }
+            if (user.getRole().equals("customer")) {
+                pageToShow = "index";
+            } else if (user.getRole().equals("employee")) {
+                pageToShow = "employeepage";
+            }
 
-        return REDIRECT_INDICATOR + pageToShow;
-        }
-        catch (UserException ex)
-        {
+            return REDIRECT_INDICATOR + pageToShow;
+        } catch (UserException ex) {
             request.setAttribute("error", "Wrong username or password!");
             return "loginpage";
         }

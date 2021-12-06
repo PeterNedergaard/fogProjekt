@@ -1,7 +1,11 @@
 package web.commands;
 
+import business.entities.DoneMaterial;
 import business.entities.StandardProduct;
+import business.entities.WorkableMaterial;
 import business.exceptions.UserException;
+import business.services.CalculatorFacade;
+import business.services.MaterialFacade;
 import business.services.ProductFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +15,35 @@ import java.util.ArrayList;
 public class IndexCommand extends CommandUnprotectedPage{
 
     ProductFacade productFacade;
+    MaterialFacade materialFacade;
+    CalculatorFacade calculatorFacade;
 
     public IndexCommand(String pageToShow) {
         super(pageToShow);
 
         productFacade = new ProductFacade(database);
+        materialFacade = new MaterialFacade(database);
+        calculatorFacade = new CalculatorFacade(database);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+
+        materialFacade.initDoneMaterialLists();
+        materialFacade.initWorkableMaterialLists();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*for (WorkableMaterial wm : calculatorFacade.calcPosts(4500,5400)) {
+            System.out.println(wm.getId() + " " + wm.getName());
+        }*/
+
+        for (WorkableMaterial wm : calculatorFacade.calcCarport(4500,6900)) {
+            System.out.println(wm.getId() + " " + wm.getLength());
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         productFacade.initStandardProducts();
         productFacade.initFilterLists();

@@ -59,7 +59,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>${totalprice}$</td>
+                        <td>${totalprice} DKK</td>
                     </tr>
                     </tbody>
                 </table>
