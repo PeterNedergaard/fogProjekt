@@ -33,15 +33,12 @@ public class IndexCommand extends CommandUnprotectedPage{
         materialFacade.initWorkableMaterialLists();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /*for (WorkableMaterial wm : calculatorFacade.calcPosts(4500,5400)) {
-            System.out.println(wm.getId() + " " + wm.getName());
+
+        /*for (WorkableMaterial wm : calculatorFacade.calcCarport(3600,5700)) {
+            System.out.println(wm.getId() + " " + wm.getAmount() + " " + wm.getLength() + " " + wm.getDescription());
         }*/
 
-        for (WorkableMaterial wm : calculatorFacade.calcCarport(4500,6900)) {
-            System.out.println(wm.getId() + " " + wm.getLength());
-        }
-
-
+        System.out.println(productFacade.getLatestCustomId());
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

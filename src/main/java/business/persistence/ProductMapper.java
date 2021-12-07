@@ -1,9 +1,11 @@
 package business.persistence;
 
+import business.entities.CustomProduct;
 import business.entities.Order;
 import business.entities.StandardProduct;
 import business.entities.StandardProduct;
 import business.services.ProductFacade;
+import business.services.UserFacade;
 
 import java.sql.*;
 import java.util.*;
@@ -16,6 +18,7 @@ public class ProductMapper {
     {
         this.database = database;
     }
+
 
     public void initStandardProducts(){
 
@@ -56,6 +59,7 @@ public class ProductMapper {
 
     }
 
+
     public void initFilterLists(){
         if (ProductFacade.widthFilterList.size() < 1) {
 
@@ -74,7 +78,8 @@ public class ProductMapper {
 
     }
 
-    public void addStandardProductToDb(Order order){
+
+    public void addProductToDb(Order order){
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO orders (product_id,product_type,user_id,user_orderid,status) VALUES (?, ?, ?, ?, ?)";
 
@@ -95,6 +100,7 @@ public class ProductMapper {
         }
     }
 
+
     public void initWidthAndLengthLists(){
 
         int startValue = 240;
@@ -108,6 +114,56 @@ public class ProductMapper {
             ProductFacade.lengthDropdownList.add(i);
         }
 
+    }
+
+
+    public void sendCustomRequest(CustomProduct customproduct){
+
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO custom_products (product_length, product_width, roof_type, roof_material) VALUES (?, ?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, customproduct.getLength());
+                ps.setInt(2, customproduct.getWidth());
+                ps.setString(3, customproduct.getRoofType());
+                ps.setString(4, customproduct.getRoofMaterial());
+
+                ps.executeUpdate();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        Order order = new Order(getLatestCustomId(), "custom", UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(), "Awaits offer");
+
+        addProductToDb(order);
+
+    }
+
+
+    public int getLatestCustomId(){
+        int gottenId = 0;
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT idcustom_products FROM custom_products WHERE idcustom_products=(SELECT max(idcustom_products) FROM custom_products)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    gottenId = rs.getInt("idcustom_products");
+                }
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return gottenId;
     }
 
 }

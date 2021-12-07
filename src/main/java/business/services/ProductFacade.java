@@ -1,10 +1,10 @@
 package business.services;
 
+import business.entities.CustomProduct;
 import business.entities.Order;
 import business.entities.StandardProduct;
 import business.persistence.Database;
 import business.persistence.ProductMapper;
-import business.persistence.UserMapper;
 
 import java.util.*;
 
@@ -36,12 +36,20 @@ public class ProductFacade {
         //filteredStandardProductsList = standardProductsList;
     }
 
-    public void addStandardProductToDb(Order order){
-        productMapper.addStandardProductToDb(order);
+    public void addProductToDb(Order order){
+        productMapper.addProductToDb(order);
     }
 
     public void initWidthAndLengthLists(){
         productMapper.initWidthAndLengthLists();
+    }
+
+    public int getLatestCustomId(){
+        return productMapper.getLatestCustomId();
+    }
+
+    public void sendCustomRequest(CustomProduct customproduct){
+        productMapper.sendCustomRequest(customproduct);
     }
 
 }

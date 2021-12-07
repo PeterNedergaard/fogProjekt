@@ -39,6 +39,7 @@ public abstract class Command
         commands.put("customproductcommand", new CustomProductCommand("","customer"));
         commands.put("customflatroof", new CommandProtectedPage("customflatroof","customer"));
         commands.put("customangleroof", new CommandProtectedPage("customangleroof","customer"));
+        commands.put("sendrequestcommand", new SendRequestCommand("","customer"));
     }
 
     public static Command fromPath(

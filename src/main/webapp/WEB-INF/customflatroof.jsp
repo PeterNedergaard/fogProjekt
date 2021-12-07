@@ -13,15 +13,17 @@
     </jsp:attribute>
 
     <jsp:body>
+
+        <form action="${pageContext.request.contextPath}/fc/sendrequestcommand" method="POST">
             <div class="row d-flex justify-content-center">
-                <div class="col-6" style="padding-top: 12px; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6">
+                <div class="col-6"
+                     style="padding-top: 12px; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6">
                     <h5>Carport bredde</h5>
                     <select style="width: 100%" name="width" id="width">
                         <option value="" disabled selected>Vælg bredde</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <c:forEach var="widthItem" items="${applicationScope.widthlist}">
+                            <option value="${widthItem}">${widthItem}</option>
+                        </c:forEach>
                     </select>
 
                     <br><br>
@@ -29,10 +31,9 @@
                     <h5>Carport længde</h5>
                     <select style="width: 100%" name="length" id="length">
                         <option value="" disabled selected>Vælg længde</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <c:forEach var="lengthItem" items="${applicationScope.lengthlist}">
+                            <option value="${lengthItem}">${lengthItem}</option>
+                        </c:forEach>
                     </select>
 
                     <br><br>
@@ -40,10 +41,7 @@
                     <h5>Tag</h5>
                     <select style="width: 100%" name="roof" id="roof">
                         <option value="" disabled selected>Vælg tag materiale</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="plasttrapez">Plasttrapez</option>
                     </select>
 
                     <br><br><br>
@@ -75,7 +73,7 @@
 
                     <div class="row">
                         <div class="col-12" style="padding-left: 40%; padding-bottom: 12px">
-                            <button class="btn btn-warning">
+                            <button class="btn btn-warning" type="submit">
                                 Send forespørgsel
                             </button>
                         </div>
@@ -84,8 +82,8 @@
 
                 </div>
             </div>
+        </form>
 
-        </div>
 
     </jsp:body>
 </t:genericpage>

@@ -7,7 +7,6 @@ import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 public class BuyOrDeleteCommand extends CommandProtectedPage{
 
@@ -35,7 +34,7 @@ public class BuyOrDeleteCommand extends CommandProtectedPage{
 
             for (StandardProduct sp : UserFacade.currentUser.getMyBasketList()) {
                 Order order = new Order(sp.getId(),"done",UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(),"paid");
-                productFacade.addStandardProductToDb(order);
+                productFacade.addProductToDb(order);
             }
 
             UserFacade.currentUser.setOrderId(UserFacade.currentUser.getOrderId()+1);

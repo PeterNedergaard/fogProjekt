@@ -10,6 +10,8 @@ public class WorkableMaterial{
     private int length;
     private int width;
     private int height;
+    private String description;
+    private int amount;
 
     public WorkableMaterial(String name, String type, int length, int width, int height) {
         this.name = name;
@@ -17,6 +19,22 @@ public class WorkableMaterial{
         this.length = length;
         this.width = width;
         this.height = height;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public int getId() {
