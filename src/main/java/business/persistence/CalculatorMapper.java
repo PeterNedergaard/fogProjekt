@@ -2,19 +2,20 @@ package business.persistence;
 
 import business.entities.WorkableMaterial;
 import business.services.MaterialFacade;
-import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class CalculatorMapper {
 
     private Database database;
+    MaterialFacade materialFacade;
 
     public CalculatorMapper(Database database) {
         this.database = database;
+        materialFacade = new MaterialFacade(database);
     }
 
     public ArrayList<WorkableMaterial> calcCarport(int carportWidth, int carportLength) {
@@ -22,22 +23,16 @@ public class CalculatorMapper {
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
 
         ArrayList<WorkableMaterial> sortedListOfMaterials = MaterialFacade.workableMaterialList;
-        ArrayList<WorkableMaterial> sortedListOfSpaertrae = new ArrayList<>();
 
         //Sorting largest first
         sortedListOfMaterials.sort(Comparator.comparingInt(WorkableMaterial::getLength));
 
-        for (WorkableMaterial wm : sortedListOfMaterials) {
-            if (wm.getName().equals("spaertrae ubh.")) {
-                sortedListOfSpaertrae.add(wm);
-            }
-        }
 
-        listOfMaterials.addAll(calcPosts(carportWidth,carportLength));
+        listOfMaterials.addAll(calcPosts(carportWidth,carportLength, sortedListOfMaterials));
 
-        listOfMaterials.addAll(calcRem(carportWidth, carportLength, sortedListOfSpaertrae));
+        listOfMaterials.addAll(calcSpaer(carportWidth,carportLength,sortedListOfMaterials));
 
-        listOfMaterials.addAll(calcSpear(carportWidth,carportLength,sortedListOfSpaertrae));
+        listOfMaterials.addAll(calcRem(carportWidth, carportLength, sortedListOfMaterials));
 
         listOfMaterials.addAll(calcRoof(carportWidth,carportLength,sortedListOfMaterials));
 
@@ -45,15 +40,25 @@ public class CalculatorMapper {
 
         listOfMaterials.addAll(calcOverStern(carportWidth,carportLength,sortedListOfMaterials));
 
-
+        MaterialFacade.workableMaterialList.clear();
+        materialFacade.initWorkableMaterialLists();
 
         return listOfMaterials;
     }
 
 
-    public ArrayList<WorkableMaterial> calcPosts(int carportWidth, int carportLength) {
-        int numbOfPosts = 0;
-        int idOfMaterial = 10;
+    public ArrayList<WorkableMaterial> calcPosts(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfMaterials) {
+        int numbOfPosts;
+
+        WorkableMaterial materialToAdd = null;
+
+        for (WorkableMaterial wm : sortedListOfMaterials) {
+            if (wm.getName().equals("trykimp. stolpe")){
+                materialToAdd = wm;
+                break;
+            }
+        }
+
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
 
         if (carportLength < 4200) {
@@ -63,8 +68,6 @@ public class CalculatorMapper {
         }
 
         for (int i = 0; i < numbOfPosts; i++) {
-
-            WorkableMaterial materialToAdd = MaterialFacade.workableMaterialList.get(idOfMaterial - 1);
 
             //If list already contains the material to add. Add to amount
             if (listOfMaterials.contains(materialToAdd)){
@@ -85,22 +88,32 @@ public class CalculatorMapper {
     }
 
 
-    public ArrayList<WorkableMaterial> calcRem(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfSpaertrae) {
+    public ArrayList<WorkableMaterial> calcRem(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfMaterials) {
 
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
+        ArrayList<WorkableMaterial> sortedListOfSpaerTrae = new ArrayList<>();
 
-        int maxLength = sortedListOfSpaertrae.get(sortedListOfSpaertrae.size() - 1).getLength();
+        for (WorkableMaterial wm : sortedListOfMaterials) {
+            if (wm.getName().equals("spaertrae ubh.")) {
+                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight());
+                workableMaterial.setId(wm.getId());
+                sortedListOfSpaerTrae.add(workableMaterial);
+            }
+        }
+
+        int maxLength = sortedListOfSpaerTrae.get(sortedListOfSpaerTrae.size() - 1).getLength();
 
         int length = carportLength * 2;
         int lengthSum = 0;
+        WorkableMaterial materialToadd;
 
         while (lengthSum < length) {
-            WorkableMaterial materialToadd;
+
 
             //If it is possible to add the longest piece of wood
             if (lengthSum + maxLength <= length) {
 
-                materialToadd = sortedListOfSpaertrae.get(sortedListOfSpaertrae.size() - 1);
+                materialToadd = sortedListOfSpaerTrae.get(sortedListOfSpaerTrae.size() - 1);
 
                 //If list already contains material to add. Add to amount
                 if (listOfMaterials.contains(materialToadd)){
@@ -119,14 +132,15 @@ public class CalculatorMapper {
 
             } else {
 
-                for (WorkableMaterial wm : sortedListOfSpaertrae) {
+                for (WorkableMaterial wm : sortedListOfSpaerTrae) {
+
                     if (lengthSum + wm.getLength() >= length) {
 
                         //If list already contains material to add. Add to amount
                         if (listOfMaterials.contains(wm)){
-                            for (WorkableMaterial wml : listOfMaterials) {
-                                if (wml.equals(wm)){
-                                    wml.setAmount(wml.getAmount()+1);
+                            for (WorkableMaterial lwm : listOfMaterials) {
+                                if (lwm.equals(wm)){
+                                    lwm.setAmount(lwm.getAmount()+1);
                                 }
                             }
                         } else {
@@ -147,31 +161,38 @@ public class CalculatorMapper {
     }
 
 
-    public ArrayList<WorkableMaterial> calcSpear(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfSpaertrae){
+    public ArrayList<WorkableMaterial> calcSpaer(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfMaterials){
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
+        ArrayList<WorkableMaterial> sortedListOfSpaerTrae = new ArrayList<>();
+
+        for (WorkableMaterial wm : sortedListOfMaterials) {
+            if (wm.getName().equals("spaertrae ubh.")) {
+                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight());
+                workableMaterial.setId(wm.getId());
+                sortedListOfSpaerTrae.add(workableMaterial);
+            }
+        }
 
         int amountSpear = carportLength/300;
 
-        for (WorkableMaterial wm : sortedListOfSpaertrae) {
+        for (WorkableMaterial wm : sortedListOfSpaerTrae) {
 
             //Find piece of wood as close to carport width as possible, but always longer.
             if (wm.getLength() >= carportWidth) {
 
                 for (int i = 0; i < amountSpear; i++) {
 
-                    WorkableMaterial materialToAdd = wm;
-
                     //If list already contains material to add
-                    if (listOfMaterials.contains(materialToAdd)){
-                        for (WorkableMaterial wml : listOfMaterials) {
-                            if (wml.equals(materialToAdd)){
-                                wml.setAmount(wm.getAmount()+1);
+                    if (listOfMaterials.contains(wm)){
+                        for (WorkableMaterial lwm : listOfMaterials) {
+                            if (lwm.equals(wm)){
+                                lwm.setAmount(lwm.getAmount()+1);
                             }
                         }
                     } else {
-                        materialToAdd.setDescription("Spær, monteres på rem");
-                        materialToAdd.setAmount(materialToAdd.getAmount() + 1);
-                        listOfMaterials.add(materialToAdd);
+                        wm.setDescription("Spær, monteres på rem");
+                        wm.setAmount(wm.getAmount() + 1);
+                        listOfMaterials.add(wm);
                     }
                 }
 
@@ -271,7 +292,7 @@ public class CalculatorMapper {
 
         while (lengthSum < length) {
 
-            //If it is possible to add the longest piece of woowd
+            //If it is possible to add the longest piece of wood
             if (lengthSum + maxLength <= length) {
                 WorkableMaterial materialToAdd = sortedListOfUnderStern.get(sortedListOfUnderStern.size() - 1);
 
@@ -316,7 +337,6 @@ public class CalculatorMapper {
             }
 
         }
-
 
         return listOfMaterials;
     }

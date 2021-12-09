@@ -34,10 +34,14 @@
             </p>
         </div>
         <nav class="my-2 my-md-0 me-md-3">
-            <c:if test="${addHomeLink == null }">
+            <c:if test="${addHomeLink == null && sessionScope.user.role == 'customer'}">
                 <a class="p-2 text-light" href="<%=request.getContextPath()%>">Home</a>
             </c:if>
-            <a class="p-2 text-light" href="#">Orders</a>
+
+            <c:if test="${sessionScope.user.role == 'employee'}">
+                <a class="p-2 text-light" href="${pageContext.request.contextPath}/fc/vieworderscommand">Orders</a>
+            </c:if>
+
             <a class="p-2 text-light" href="#">Profile</a>
             <a class="p-2 text-light" href="#">About</a>
         </nav>

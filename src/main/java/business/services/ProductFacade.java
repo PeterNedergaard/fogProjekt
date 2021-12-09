@@ -52,4 +52,16 @@ public class ProductFacade {
         productMapper.sendCustomRequest(customproduct);
     }
 
+    public ArrayList<Order> orderList(){
+        return productMapper.orderList();
+    }
+
+    public String getEmailById(int id){
+        return productMapper.getEmailById(id);
+    }
+
+    public CustomProduct getCustomProductById(int productId){
+        return productMapper.getCustomProductById(productId);
+    }
+
 }

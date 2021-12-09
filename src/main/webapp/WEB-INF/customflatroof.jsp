@@ -22,7 +22,7 @@
                     <select style="width: 100%" name="width" id="width">
                         <option value="" disabled selected>Vælg bredde</option>
                         <c:forEach var="widthItem" items="${applicationScope.widthlist}">
-                            <option value="${widthItem}">${widthItem}</option>
+                            <option value="${widthItem}">${widthItem} mm</option>
                         </c:forEach>
                     </select>
 
@@ -32,7 +32,7 @@
                     <select style="width: 100%" name="length" id="length">
                         <option value="" disabled selected>Vælg længde</option>
                         <c:forEach var="lengthItem" items="${applicationScope.lengthlist}">
-                            <option value="${lengthItem}">${lengthItem}</option>
+                            <option value="${lengthItem}">${lengthItem} mm</option>
                         </c:forEach>
                     </select>
 

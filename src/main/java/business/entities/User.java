@@ -17,9 +17,54 @@ public class User
     private String email;
     private String password; // Should be hashed and secured
     private String role;
+    private int telephone;
+    private int zipcode;
+    private String city;
+    private String street;
+    private String houseNumber;
 
     private ArrayList<StandardProduct> myBasketList = new ArrayList<>();
     private ArrayList<Order> myOrderList = new ArrayList<>();
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
 
     public int getOrderId() {
         return orderId;

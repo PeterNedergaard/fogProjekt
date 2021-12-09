@@ -1,5 +1,6 @@
 package web.commands;
 
+import business.entities.CustomProduct;
 import business.entities.DoneMaterial;
 import business.entities.StandardProduct;
 import business.entities.WorkableMaterial;
@@ -34,11 +35,9 @@ public class IndexCommand extends CommandUnprotectedPage{
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /*for (WorkableMaterial wm : calculatorFacade.calcCarport(3600,5700)) {
+        /*for (WorkableMaterial wm : calculatorFacade.calcCarport(2400,7500)) {
             System.out.println(wm.getId() + " " + wm.getAmount() + " " + wm.getLength() + " " + wm.getDescription());
         }*/
-
-        System.out.println(productFacade.getLatestCustomId());
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -5,11 +5,15 @@ import business.persistence.Database;
 import business.persistence.UserMapper;
 import business.exceptions.UserException;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class UserFacade
 {
     UserMapper userMapper;
 
     public static User currentUser;
+    public static ArrayList<User> userList = new ArrayList<>();
 
     public UserFacade(Database database)
     {
@@ -30,6 +34,11 @@ public class UserFacade
 
     public void updateUserToDb(User user){
         userMapper.updateUserToDb(user);
+    }
+
+
+    public ArrayList<User> getUserList() throws SQLException {
+        return userMapper.getUserList();
     }
 
 }

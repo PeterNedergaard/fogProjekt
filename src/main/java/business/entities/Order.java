@@ -7,6 +7,7 @@ public class Order {
     private int userId;
     private int userOrderId;
     private String status;
+    private String email;
 
     public Order(int productId, String productType, int userId, int userOrderId, String status) {
         this.productId = productId;
@@ -14,6 +15,14 @@ public class Order {
         this.userId = userId;
         this.userOrderId = userOrderId;
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getProductId() {

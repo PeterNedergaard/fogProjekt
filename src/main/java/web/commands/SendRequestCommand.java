@@ -3,6 +3,7 @@ package web.commands;
 import business.entities.CustomProduct;
 import business.exceptions.UserException;
 import business.services.ProductFacade;
+import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,10 @@ public class SendRequestCommand extends CommandProtectedPage{
 
         CustomProduct customProduct = new CustomProduct(selectedLength,selectedWidth,"flat",selectedRoof);
 
+        UserFacade.currentUser.setOrderId(UserFacade.currentUser.getOrderId()+1);
+
         productFacade.sendCustomRequest(customProduct);
+
 
         return REDIRECT_INDICATOR + "customflatroof";
     }

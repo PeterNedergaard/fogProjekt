@@ -103,14 +103,14 @@ public class ProductMapper {
 
     public void initWidthAndLengthLists(){
 
-        int startValue = 240;
+        int startValue = 2400;
 
-        for (int i = startValue; i <= 600; i+=30) {
+        for (int i = startValue; i <= 6000; i+=300) {
             ProductFacade.widthDropdownList.add(i);
             System.out.println(i);
         }
 
-        for (int i = startValue; i <= 780; i+=30) {
+        for (int i = startValue; i <= 7800; i+=300) {
             ProductFacade.lengthDropdownList.add(i);
         }
 
@@ -137,7 +137,9 @@ public class ProductMapper {
             throwables.printStackTrace();
         }
 
-        Order order = new Order(getLatestCustomId(), "custom", UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(), "Awaits offer");
+        int hej = getLatestCustomId();
+
+        Order order = new Order(hej, "custom", UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(), "Awaits offer");
 
         addProductToDb(order);
 
@@ -164,6 +166,102 @@ public class ProductMapper {
         }
 
         return gottenId;
+    }
+
+
+    public ArrayList<Order> orderList(){
+        ArrayList<Order> orderList = new ArrayList<>();
+
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM orders WHERE product_type='custom'";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int productId = rs.getInt("product_id");
+                    String productType = rs.getString("product_type");
+                    int userId = rs.getInt("user_id");
+                    int orderId = rs.getInt("user_orderid");
+                    String status = rs.getString("status");
+
+                    Order order = new Order(productId,productType,userId,orderId,status);
+
+                    String email = getEmailById(userId);
+                    order.setEmail(email);
+
+                    orderList.add(order);
+
+                }
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return orderList;
+    }
+
+
+    public String getEmailById(int id){
+        String gottenEmail = "";
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT email FROM users WHERE id=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1,id);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    gottenEmail = rs.getString("email");
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return gottenEmail;
+    }
+
+
+    public CustomProduct getCustomProductById(int productId){
+        CustomProduct customProduct = null;
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM custom_products WHERE idcustom_products=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1,productId);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int id = rs.getInt("idcustom_products");
+                    int productLength = rs.getInt("product_length");
+                    int productWidth = rs.getInt("product_width");
+                    String roofType = rs.getString("roof_type");
+                    String roofMaterial = rs.getString("roof_material");
+
+                    CustomProduct tempProduct = new CustomProduct(productLength, productWidth,roofType,roofMaterial);
+                    tempProduct.setId(id);
+
+                    customProduct = tempProduct;
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return customProduct;
     }
 
 }
