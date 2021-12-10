@@ -4,9 +4,7 @@ import business.entities.CustomProduct;
 import business.entities.Order;
 import business.entities.User;
 import business.entities.WorkableMaterial;
-import business.services.CalculatorFacade;
-import business.services.ProductFacade;
-import business.services.UserFacade;
+import business.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +14,13 @@ public class ViewInfoCommand extends CommandProtectedPage{
 
     CalculatorFacade calculatorFacade;
     ProductFacade productFacade;
+    SVGFacade svgFacade;
 
     public ViewInfoCommand(String pageToShow, String role) {
         super(pageToShow, role);
         calculatorFacade = new CalculatorFacade(database);
         productFacade = new ProductFacade(database);
+        svgFacade = new SVGFacade(database);
     }
 
     @Override
@@ -43,13 +43,24 @@ public class ViewInfoCommand extends CommandProtectedPage{
 
         ArrayList<WorkableMaterial> materialList = calculatorFacade.calcCarport(customProduct.getWidth(), customProduct.getLength());
 
+        String strSumPrice;
+        double totalSum = 0;
+
+        for (WorkableMaterial wm : materialList) {
+            totalSum += wm.getTotalPrice();
+        }
+
+        strSumPrice = String.format("%.2f",totalSum);
+
+
+        SVG svg = svgFacade.getSVGdrawing(customProduct.getWidth(), customProduct.getLength());
+
         request.getServletContext().setAttribute("materiallist", materialList);
         request.getServletContext().setAttribute("customer", orderUser);
         request.getServletContext().setAttribute("customproduct", customProduct);
+        request.getServletContext().setAttribute("strsumprice", strSumPrice);
 
-
-
-
+        request.getServletContext().setAttribute("svgdrawing", svg.toString());
 
         return REDIRECT_INDICATOR + "viewinfopage";
     }

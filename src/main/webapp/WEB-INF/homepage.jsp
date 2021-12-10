@@ -159,10 +159,16 @@
 
                             </div>
                             <div class="col-6">
-                                <button type="submit" name="rooftype" value="raised" class="btn"
+                                <%--<button type="submit" name="rooftype" value="raised" class="btn"
                                         style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
                                     Rejst tag
-                                </button>
+                                </button>--%>
+                                <a href="${pageContext.request.contextPath}/fc/svgcommand">
+                                    <button type="button" name="rooftype" value="raised" class="btn"
+                                            style="width: 100%; border-color: #cfcfcf; border-style: solid; border-width: 1px; background-color: #e6e6e6; border-top: 0px">
+                                        Rejst tag
+                                    </button>
+                                </a>
                             </div>
                         </div>
 

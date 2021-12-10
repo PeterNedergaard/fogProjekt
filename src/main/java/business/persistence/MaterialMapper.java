@@ -70,8 +70,9 @@ public class MaterialMapper {
                         int materialLength = rs.getInt("material_length");
                         int materialWidth = rs.getInt("material_width");
                         int materialHeight = rs.getInt("material_height");
+                        double materialPrice = rs.getInt("material_price") * 2.85723;
 
-                        WorkableMaterial workableMaterial = new WorkableMaterial(materialName,materialType,materialLength,materialWidth,materialHeight);
+                        WorkableMaterial workableMaterial = new WorkableMaterial(materialName,materialType,materialLength,materialWidth,materialHeight,materialPrice);
                         workableMaterial.setId(id);
                         workableMaterialList.add(workableMaterial);
 

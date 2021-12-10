@@ -1,5 +1,6 @@
 package business.entities;
 
+import java.text.DecimalFormat;
 import java.util.Comparator;
 
 public class WorkableMaterial{
@@ -12,13 +13,52 @@ public class WorkableMaterial{
     private int height;
     private String description;
     private int amount;
+    private double price;
+    private double totalPrice;
+    private String strPrice;
+    private String strTotalPrice;
 
-    public WorkableMaterial(String name, String type, int length, int width, int height) {
+    public WorkableMaterial(String name, String type, int length, int width, int height, double price) {
         this.name = name;
         this.type = type;
         this.length = length;
         this.width = width;
         this.height = height;
+        this.price = price;
+        this.strPrice = String.format("%.2f",price);
+    }
+
+    public String getStrPrice() {
+        return strPrice;
+    }
+
+    public void setStrPrice(String strPrice) {
+        this.strPrice = strPrice;
+    }
+
+    public String getStrTotalPrice() {
+        return strTotalPrice;
+    }
+
+    public void setStrTotalPrice(String strTotalPrice) {
+        this.strTotalPrice = strTotalPrice;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.strTotalPrice = String.format("%.2f",totalPrice);
+        this.totalPrice = totalPrice;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getDescription() {

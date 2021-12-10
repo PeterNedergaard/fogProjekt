@@ -74,11 +74,13 @@ public class CalculatorMapper {
                 for (WorkableMaterial wm : listOfMaterials) {
                     if (wm.equals(materialToAdd)){
                         wm.setAmount(wm.getAmount()+1);
+                        wm.setTotalPrice(wm.getTotalPrice()+wm.getPrice());
                     }
                 }
             } else {
                 materialToAdd.setDescription("Stolper nedgraves 90 cm. i jord");
                 materialToAdd.setAmount(materialToAdd.getAmount() + 1);
+                materialToAdd.setTotalPrice(materialToAdd.getPrice());
                 listOfMaterials.add(materialToAdd);
             }
 
@@ -95,7 +97,7 @@ public class CalculatorMapper {
 
         for (WorkableMaterial wm : sortedListOfMaterials) {
             if (wm.getName().equals("spaertrae ubh.")) {
-                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight());
+                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight(), wm.getPrice());
                 workableMaterial.setId(wm.getId());
                 sortedListOfSpaerTrae.add(workableMaterial);
             }
@@ -120,11 +122,13 @@ public class CalculatorMapper {
                     for (WorkableMaterial wm : listOfMaterials) {
                         if (wm.equals(materialToadd)){
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getTotalPrice()+wm.getPrice());
                         }
                     }
                 } else {
                     materialToadd.setDescription("Remme i sider, sadles ned i stolper");
                     materialToadd.setAmount(materialToadd.getAmount()+1);
+                    materialToadd.setTotalPrice(materialToadd.getPrice());
                     listOfMaterials.add(materialToadd);
                 }
 
@@ -141,11 +145,13 @@ public class CalculatorMapper {
                             for (WorkableMaterial lwm : listOfMaterials) {
                                 if (lwm.equals(wm)){
                                     lwm.setAmount(lwm.getAmount()+1);
+                                    lwm.setTotalPrice(lwm.getTotalPrice()+lwm.getPrice());
                                 }
                             }
                         } else {
                             wm.setDescription("Remme i sider, sadles ned i stolper");
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getPrice());
                             listOfMaterials.add(wm);
                         }
 
@@ -167,13 +173,17 @@ public class CalculatorMapper {
 
         for (WorkableMaterial wm : sortedListOfMaterials) {
             if (wm.getName().equals("spaertrae ubh.")) {
-                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight());
+                WorkableMaterial workableMaterial = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight(), wm.getPrice());
                 workableMaterial.setId(wm.getId());
                 sortedListOfSpaerTrae.add(workableMaterial);
             }
         }
 
-        int amountSpear = carportLength/300;
+        int interval = 300;
+
+        int length = carportLength-interval;
+
+        int amountSpear = (length/interval) + 2;
 
         for (WorkableMaterial wm : sortedListOfSpaerTrae) {
 
@@ -187,11 +197,13 @@ public class CalculatorMapper {
                         for (WorkableMaterial lwm : listOfMaterials) {
                             if (lwm.equals(wm)){
                                 lwm.setAmount(lwm.getAmount()+1);
+                                lwm.setTotalPrice(lwm.getTotalPrice()+lwm.getPrice());
                             }
                         }
                     } else {
                         wm.setDescription("Spær, monteres på rem");
                         wm.setAmount(wm.getAmount() + 1);
+                        wm.setTotalPrice(wm.getPrice());
                         listOfMaterials.add(wm);
                     }
                 }
@@ -232,11 +244,13 @@ public class CalculatorMapper {
                     for (WorkableMaterial wm : listOfMaterials) {
                         if (wm.equals(materialToadd)){
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getTotalPrice() + wm.getPrice());
                         }
                     }
                 } else {
                     materialToadd.setDescription("tagplader monteres på spær");
                     materialToadd.setAmount(materialToadd.getAmount()+1);
+                    materialToadd.setTotalPrice(materialToadd.getPrice());
                     listOfMaterials.add(materialToadd);
                 }
 
@@ -254,11 +268,13 @@ public class CalculatorMapper {
                             for (WorkableMaterial wml : listOfMaterials) {
                                 if (wml.equals(wm)){
                                     wml.setAmount(wml.getAmount()+1);
+                                    wml.setTotalPrice(wml.getTotalPrice()+ wml.getPrice());
                                 }
                             }
                         } else {
                             wm.setDescription("tagplader monteres på spær");
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getPrice());
                             listOfMaterials.add(wm);
                         }
 
@@ -301,11 +317,13 @@ public class CalculatorMapper {
                     for (WorkableMaterial wm : listOfMaterials) {
                         if (wm.equals(materialToAdd)){
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getTotalPrice()+wm.getPrice());
                         }
                     }
                 } else {
                     materialToAdd.setDescription("understernbrædder");
                     materialToAdd.setAmount(materialToAdd.getAmount()+1);
+                    materialToAdd.setTotalPrice(materialToAdd.getPrice());
                     listOfMaterials.add(materialToAdd);
                 }
 
@@ -322,11 +340,13 @@ public class CalculatorMapper {
                             for (WorkableMaterial wml : listOfMaterials) {
                                 if (wml.equals(wm)){
                                     wml.setAmount(wml.getAmount()+1);
+                                    wml.setTotalPrice(wml.getTotalPrice()+wml.getPrice());
                                 }
                             }
                         } else {
                             wm.setDescription("understernbrædder");
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getPrice());
                             listOfMaterials.add(wm);
                         }
 
@@ -369,11 +389,13 @@ public class CalculatorMapper {
                     for (WorkableMaterial wm : listOfMaterials) {
                         if (wm.equals(materialToAdd)){
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getTotalPrice()+wm.getPrice());
                         }
                     }
                 } else {
                     materialToAdd.setDescription("oversternbrædder");
                     materialToAdd.setAmount(materialToAdd.getAmount()+1);
+                    materialToAdd.setTotalPrice(materialToAdd.getPrice());
                     listOfMaterials.add(materialToAdd);
                 }
 
@@ -390,11 +412,13 @@ public class CalculatorMapper {
                             for (WorkableMaterial wml : listOfMaterials) {
                                 if (wml.equals(wm)){
                                     wml.setAmount(wml.getAmount()+1);
+                                    wml.setTotalPrice(wml.getTotalPrice()+wml.getPrice());
                                 }
                             }
                         } else {
                             wm.setDescription("oversternbrædder");
                             wm.setAmount(wm.getAmount()+1);
+                            wm.setTotalPrice(wm.getPrice());
                             listOfMaterials.add(wm);
                         }
 

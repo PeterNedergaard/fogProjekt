@@ -62,8 +62,9 @@ class CalculatorMapperTest {
                     int materialLength = rs.getInt("material_length");
                     int materialWidth = rs.getInt("material_width");
                     int materialHeight = rs.getInt("material_height");
+                    int materialPrice = rs.getInt("material_price");
 
-                    WorkableMaterial workableMaterial = new WorkableMaterial(materialName,materialType,materialLength,materialWidth,materialHeight);
+                    WorkableMaterial workableMaterial = new WorkableMaterial(materialName,materialType,materialLength,materialWidth,materialHeight, materialPrice);
                     workableMaterial.setId(id);
                     workableMaterialList.add(workableMaterial);
                 }

@@ -44,6 +44,8 @@ public abstract class Command
         commands.put("vieworderspage", new CommandProtectedPage("vieworderspage","employee"));
         commands.put("viewinfocommand", new ViewInfoCommand("","employee"));
         commands.put("viewinfopage", new CommandProtectedPage("viewinfopage","employee"));
+        commands.put("svgpage", new CommandUnprotectedPage("svgpage"));
+        commands.put("svgcommand", new SVGCommand(""));
     }
 
     public static Command fromPath(
