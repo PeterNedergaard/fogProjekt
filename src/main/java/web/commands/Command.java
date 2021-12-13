@@ -40,12 +40,16 @@ public abstract class Command
         commands.put("customflatroof", new CommandProtectedPage("customflatroof","customer"));
         commands.put("customangleroof", new CommandProtectedPage("customangleroof","customer"));
         commands.put("sendrequestcommand", new SendRequestCommand("","customer"));
-        commands.put("vieworderscommand", new ViewOrdersCommand("","employee"));
+        commands.put("vieworderscommand", new ViewOrdersCommand(""));
         commands.put("vieworderspage", new CommandProtectedPage("vieworderspage","employee"));
         commands.put("viewinfocommand", new ViewInfoCommand("","employee"));
         commands.put("viewinfopage", new CommandProtectedPage("viewinfopage","employee"));
         commands.put("svgpage", new CommandUnprotectedPage("svgpage"));
         commands.put("svgcommand", new SVGCommand(""));
+        commands.put("sendoffercommand", new SendOfferCommand("","employee"));
+        commands.put("myorderspage", new CommandProtectedPage("myorderspage","customer"));
+        commands.put("viewmyordercommand", new ViewMyOrderCommand("","customer"));
+        commands.put("viewmyorderpage", new CommandProtectedPage("viewmyorderpage","customer"));
     }
 
     public static Command fromPath(

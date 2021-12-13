@@ -20,7 +20,7 @@ public class SVGMapper {
         int boxWidth = carportLength/10;
         int boxHeight = carportWidth/10;
 
-        int viewboxWidth = boxWidth+150;
+        int viewboxWidth = boxWidth+152;
         int viewboxHeight = boxHeight+50;
 
         String viewbox = "0 0 " + viewboxWidth + " " + viewboxHeight;

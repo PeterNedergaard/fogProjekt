@@ -64,4 +64,16 @@ public class ProductFacade {
         return productMapper.getCustomProductById(productId);
     }
 
+    public void updateCustomPrice(int productId, double price){
+        productMapper.updateCustomPrice(productId,price);
+    }
+
+    public void updateOrderStatus(Order order){
+        productMapper.updateOrderStatus(order);
+    }
+
+    public ArrayList<Order> myOrderList(int userId){
+        return productMapper.myOrderList(userId);
+    }
+
 }

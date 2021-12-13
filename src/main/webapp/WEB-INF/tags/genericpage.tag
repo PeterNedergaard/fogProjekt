@@ -38,7 +38,7 @@
                 <a class="p-2 text-light" href="<%=request.getContextPath()%>">Home</a>
             </c:if>
 
-            <c:if test="${sessionScope.user.role == 'employee'}">
+            <c:if test="${sessionScope.user.role != null}">
                 <a class="p-2 text-light" href="${pageContext.request.contextPath}/fc/vieworderscommand">Orders</a>
             </c:if>
 

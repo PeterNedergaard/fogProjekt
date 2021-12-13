@@ -16,33 +16,33 @@
 
         <div>
 
-            <form action="${pageContext.request.contextPath}/fc/viewinfocommand" method="POST">
+            <form action="${pageContext.request.contextPath}/fc/viewmyordercommand" method="POST">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">Ordre nr.</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Type</th>
                         <th scope="col">Status</th>
                         <th scope="col">Info</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="orderitem" items="${applicationScope.orderslist}" varStatus="loop">
+                    <c:forEach var="myorderitem" items="${applicationScope.myorderlist}" varStatus="loop">
                         <tr>
                             <td>
-                                <h5>${orderitem.id}</h5>
+                                <h5>${myorderitem.id}</h5>
                             </td>
                             <td>
-                                <h5>${orderitem.email}</h5>
+                                <h5>${myorderitem.productType}</h5>
                             </td>
                             <td>
-                                <c:if test="${orderitem.status.equals('Awaits offer')}">
+                                <c:if test="${myorderitem.status.equals('Awaits offer')}">
                                     <h5 style="color: #B94444">Afventer tilbud</h5>
                                 </c:if>
-                                <c:if test="${orderitem.status.equals('Awaits payment')}">
+                                <c:if test="${myorderitem.status.equals('Awaits payment')}">
                                     <h5 style="color: #e3ae1e">Afventer betaling</h5>
                                 </c:if>
-                                <c:if test="${orderitem.status.equals('Paid')}">
+                                <c:if test="${myorderitem.status.equals('Paid')}">
                                     <h5 style="color: forestgreen">Betalt</h5>
                                 </c:if>
                             </td>

@@ -180,6 +180,7 @@ public class ProductMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
+                    int id = rs.getInt("idorders");
                     int productId = rs.getInt("product_id");
                     String productType = rs.getString("product_type");
                     int userId = rs.getInt("user_id");
@@ -189,6 +190,8 @@ public class ProductMapper {
                     Order order = new Order(productId,productType,userId,orderId,status);
 
                     String email = getEmailById(userId);
+
+                    order.setId(id);
                     order.setEmail(email);
 
                     orderList.add(order);
@@ -249,9 +252,11 @@ public class ProductMapper {
                     int productWidth = rs.getInt("product_width");
                     String roofType = rs.getString("roof_type");
                     String roofMaterial = rs.getString("roof_material");
+                    int price = rs.getInt("product_price");
 
                     CustomProduct tempProduct = new CustomProduct(productLength, productWidth,roofType,roofMaterial);
                     tempProduct.setId(id);
+                    tempProduct.setPrice(price);
 
                     customProduct = tempProduct;
                 }
@@ -263,5 +268,87 @@ public class ProductMapper {
 
         return customProduct;
     }
+
+
+    public void updateCustomPrice(int productId, double price){
+
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE custom_products SET product_price=? WHERE idcustom_products=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setDouble(1, price);
+                ps.setInt(2, productId);
+
+                ps.executeUpdate();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public void updateOrderStatus(Order order){
+
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE orders SET status=? WHERE idorders=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, order.getStatus());
+                ps.setInt(2, order.getId());
+
+                ps.executeUpdate();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public ArrayList<Order> myOrderList(int userId){
+        ArrayList<Order> orderList = new ArrayList<>();
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM orders WHERE user_id=? AND product_type='custom'";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1,userId);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int id = rs.getInt("idorders");
+                    int productId = rs.getInt("product_id");
+                    String productType = rs.getString("product_type");
+                    int orderId = rs.getInt("user_orderid");
+                    String status = rs.getString("status");
+
+                    Order order = new Order(productId,productType,userId,orderId,status);
+
+                    String email = getEmailById(userId);
+
+                    order.setId(id);
+                    order.setEmail(email);
+
+                    orderList.add(order);
+                }
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return orderList;
+    }
+
 
 }

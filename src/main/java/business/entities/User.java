@@ -5,11 +5,16 @@ import java.util.ArrayList;
 public class User
 {
 
-    public User(String email, String password, String role)
+    public User(String email, String password, String role, int telephone, int zipcode, String city, String street, String houseNumber)
     {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.telephone = telephone;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
     }
 
     private int id; // just used to demo retrieval of autogen keys in UserMapper

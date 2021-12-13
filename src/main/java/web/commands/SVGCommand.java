@@ -81,8 +81,6 @@ public class SVGCommand extends CommandUnprotectedPage{
             x += interval/10;
         }
 
-
-
         //Mållinjer
 
             //vertical lines bottom

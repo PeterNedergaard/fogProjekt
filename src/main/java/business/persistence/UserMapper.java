@@ -20,14 +20,21 @@ public class UserMapper
     {
         try (Connection connection = database.connect())
         {
-            String sql = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (email, password, role, telephone, zipcode, city, street, house_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
             {
                 ps.setString(1, user.getEmail());
                 ps.setString(2, user.getPassword());
                 ps.setString(3, user.getRole());
+                ps.setInt(4, user.getTelephone());
+                ps.setInt(5, user.getZipcode());
+                ps.setString(6, user.getCity());
+                ps.setString(7, user.getStreet());
+                ps.setString(8, user.getHouseNumber());
+
                 ps.executeUpdate();
+
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
                 int id = ids.getInt(1);
@@ -67,7 +74,7 @@ public class UserMapper
                     String street = rs.getString("street");
                     String houseNumber = rs.getString("house_number");
 
-                    User user = new User(email, password, role);
+                    User user = new User(email, password, role, telephone, zipcode, city, street, houseNumber);
 
                     user.setOrderId(orderId);
                     user.setId(id);
@@ -137,7 +144,7 @@ public class UserMapper
                     String street = rs.getString("street");
                     String houseNumber = rs.getString("house_number");
 
-                    User user = new User(email, password, role);
+                    User user = new User(email, password, role, telephone, zipcode, city, street, houseNumber);
 
                     user.setId(id);
                     user.setOrderId(orderId);

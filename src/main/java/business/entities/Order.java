@@ -2,6 +2,7 @@ package business.entities;
 
 public class Order {
 
+    private int id;
     private int productId;
     private String productType;
     private int userId;
@@ -15,6 +16,14 @@ public class Order {
         this.userId = userId;
         this.userOrderId = userOrderId;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
