@@ -16,13 +16,13 @@
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="email">Email</label>
                     <div class="col-sm-4">
-                        <input class="form-control" type="text" name="email" id="email" value="ken@world.com" placeholder="someone@nowhere.com">
+                        <input class="form-control" type="text" name="email" id="email" value="robin@gotham.com" placeholder="someone@nowhere.com">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="password">Password</label>
                     <div class="col-sm-4">
-                        <input class="form-control" type="password" name="password" id="password" value="jensen" placeholder="sesam">
+                        <input class="form-control" type="password" name="password" id="password" value="batman" placeholder="sesam">
                     </div>
                 </div>
                 <c:if test="${requestScope.error != null }">

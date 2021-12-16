@@ -14,8 +14,8 @@ public class CalculatorFacade {
         calculatorMapper = new CalculatorMapper(database);
     }
 
-    public ArrayList<WorkableMaterial> calcCarport(int carportWidth, int carportLength) {
-        return calculatorMapper.calcCarport(carportWidth,carportLength);
+    public ArrayList<WorkableMaterial> calcCarport(int carportWidth, int carportLength, int shedWidth, int shedLength) {
+        return calculatorMapper.calcCarport(carportWidth,carportLength,shedWidth,shedLength);
     }
 
 }

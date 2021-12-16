@@ -20,10 +20,10 @@ public class SVGMapper {
         int boxWidth = carportLength/10;
         int boxHeight = carportWidth/10;
 
-        int viewboxWidth = boxWidth+152;
-        int viewboxHeight = boxHeight+50;
+        int viewboxWidth = boxWidth+154;
+        int viewboxHeight = boxHeight+105;
 
-        String viewbox = "0 0 " + viewboxWidth + " " + viewboxHeight;
+        String viewbox = "-2 -55 " + viewboxWidth + " " + viewboxHeight;
 
         SVG svg = new SVG(0,0,viewbox,100,100);
 
@@ -71,6 +71,7 @@ public class SVGMapper {
         svg.addRect(boxWidth-3,0,boxHeight,3);
 
         double interval = 300;
+        int intervalInt = (int) interval/10;
 
         double length = carportLength-interval;
 
@@ -78,10 +79,32 @@ public class SVGMapper {
 
         double x = interval/10;
 
+        double prevX = 0;
+        double lineY = -25;
+
+
+        //Statiske lodrette linjer i start og slut
+        svg.addLine(1.5,lineY+15,1.5,lineY-15);
+        svg.addLine(boxWidth-1.5,lineY+15,boxWidth-1.5,lineY-15);
+
+        svg.addText((interval/10)/4,lineY-15, String.valueOf(intervalInt));
+
         for (int i = 0; i < amount; i++) {
+            //Spær
             svg.addRect(x,0,boxHeight,3);
+
+            //Lodret linje
+            svg.addLine(x+1.5,lineY+15,x+1.5,lineY-15);
+
+            svg.addText(x+((interval/10)/4),lineY-15, String.valueOf(intervalInt));
+
+            prevX = x;
+
             x += interval/10;
         }
+
+        //Vandret linje fra start til slut
+        svg.addLine(1.5,lineY,boxWidth-1.5,lineY);
 
 
 

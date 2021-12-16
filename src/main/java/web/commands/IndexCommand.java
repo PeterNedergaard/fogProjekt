@@ -35,7 +35,7 @@ public class IndexCommand extends CommandUnprotectedPage{
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /*for (WorkableMaterial wm : calculatorFacade.calcCarport(2400,7500)) {
+        /*for (WorkableMaterial wm : calculatorFacade.calcCarport(6000,7800, 5300, 2100)) {
             System.out.println(wm.getId() + " " + wm.getAmount() + " " + wm.getLength() + " " + wm.getDescription() + " " + wm.getPrice() + " " + wm.getTotalPrice());
         }*/
 

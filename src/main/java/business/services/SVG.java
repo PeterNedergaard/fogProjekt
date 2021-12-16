@@ -19,8 +19,8 @@ public class SVG {
             "preserverAspectRatio=\"xMinYMin\">";
 
     private final String rectTemplate = "<rect x=\"%f\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\"/>";
-    private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:rgb(0,0,0);stroke-width:2\" />";
-    private final String textTemplate = "<text x=\"%d\" y=\"%d\" fill=\"black\">%s</text>";
+    private final String lineTemplate = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:rgb(0,0,0);stroke-width:2\" />";
+    private final String textTemplate = "<text x=\"%f\" y=\"%f\" fill=\"black\">%s</text>";
 
     public SVG(int x, int y, String viewbox, int width, int height) {
         this.x = x;
@@ -35,11 +35,11 @@ public class SVG {
         svg.append(String.format(rectTemplate, x, y, height, width));
     }
 
-    public void addLine(int x1, int y1, int x2, int y2){
+    public void addLine(double x1, double y1, double x2, double y2){
         svg.append(String.format(lineTemplate, x1, y1, x2, y2));
     }
 
-    public void addText(int x, int y, String text){
+    public void addText(double x, double y, String text){
         svg.append(String.format(textTemplate,x,y,text));
     }
 

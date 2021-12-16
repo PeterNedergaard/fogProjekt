@@ -24,8 +24,12 @@ public class SendRequestCommand extends CommandProtectedPage{
         int selectedWidth = Integer.parseInt(request.getParameter("width"));
         int selectedLength = Integer.parseInt(request.getParameter("length"));
         String selectedRoof = request.getParameter("roof");
+        int selectedShedWidth = Integer.parseInt(request.getParameter("shedwidth"));
+        int selectedShedLength = Integer.parseInt(request.getParameter("shedlength"));
 
         CustomProduct customProduct = new CustomProduct(selectedLength,selectedWidth,"flat",selectedRoof);
+        customProduct.setShedLength(selectedShedLength);
+        customProduct.setShedWidth(selectedShedWidth);
 
         UserFacade.currentUser.setOrderId(UserFacade.currentUser.getOrderId()+1);
 

@@ -14,13 +14,19 @@ public class SVGCommand extends CommandUnprotectedPage{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int carportWidth = 2400;
-        int carportLength = 3900;
+        int carportWidth = 5300;
+        int carportLength = 6900;
 
-        int boxWidth = carportLength/10;
-        int boxHeight = carportWidth/10;
+        int shedWidth = 5000;
+        int shedLength = 2100;
 
-        String viewbox = "0 0 " + boxWidth + boxHeight;
+        int boxWidth = (carportLength/10);
+        int boxHeight = (carportWidth/10);
+
+        int viewBoxWidth = boxWidth+110;
+        int viewBoxHeight = boxWidth+50;
+
+        String viewbox = "0 -55 " + viewBoxWidth + " " + viewBoxHeight;
 
         SVG svg = new SVG(0,0,viewbox,100,100);
 
@@ -30,35 +36,127 @@ public class SVGCommand extends CommandUnprotectedPage{
         svg.addLine(0,carportWidth/10,0,0);
 
         //Remme
-        svg.addRect(0,35, 3,boxWidth);
-        svg.addRect(0,boxHeight-35, 3,boxWidth);
+        svg.addRect(0,30, 3,boxWidth);
+        svg.addRect(0,boxHeight-30, 3,boxWidth);
 
 
-        //Stolper
+        //carports  tolper
         if (carportLength < 4200){
+
             //bagerste
-            svg.addRect(boxWidth-30-3,35-3,10,10);
-            svg.addRect(boxWidth-30-3,boxHeight-35-3,10,10);
+            svg.addRect(boxWidth-30-3,30-3,10,10);
+            svg.addRect(boxWidth-30-3,boxHeight-30-3,10,10);
 
             //forreste
-            svg.addRect(100-3,35-3,10,10);
-            svg.addRect(100-3,boxHeight-35-3,10,10);
+            svg.addRect(100-3,30-3,10,10);
+            svg.addRect(100-3,boxHeight-30-3,10,10);
 
 
         } else {
             //bagerste
-            svg.addRect(boxWidth-30-3,35-3,10,10);
-            svg.addRect(boxWidth-30-3,boxHeight-35-3,10,10);
+            svg.addRect(boxWidth-30-3,30-3,10,10);
+            svg.addRect(boxWidth-30-3,boxHeight-30-3,10,10);
 
             int postDist = carportLength/24;
 
             //øverste
-            svg.addRect((boxWidth-30-3)-postDist,35-3,10,10);
-            svg.addRect((boxWidth-30-3)-postDist*2,35-3,10,10);
+            svg.addRect((boxWidth-30-3)-postDist,30-3,10,10);
+            svg.addRect((boxWidth-30-3)-postDist*2,30-3,10,10);
 
             //nederste
-            svg.addRect((boxWidth-30-3)-postDist,boxHeight-35-3,10,10);
-            svg.addRect((boxWidth-30-3)-postDist*2,boxHeight-35-3,10,10);
+            svg.addRect((boxWidth-30-3)-postDist,boxHeight-30-3,10,10);
+            svg.addRect((boxWidth-30-3)-postDist*2,boxHeight-30-3,10,10);
+        }
+
+
+        //redskabsskurs stolper
+        if (shedWidth > 0 || shedLength > 0) {
+
+            int udhaengSum = 300;
+
+
+            if (shedWidth < (carportWidth - udhaengSum)) {
+
+                //øverste højre
+                svg.addRect(boxWidth-30-3, (boxHeight-3)-shedWidth/10, 10,10);
+
+                //øverste venstre
+                svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-3)-shedWidth/10, 10,10);
+
+                //nederste venstre
+                svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-30-3, 10,10);
+
+            } else if (shedWidth == carportWidth - udhaengSum) {
+
+                //øverste venstre
+                svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-3)-shedWidth/10, 10,10);
+
+                //nederste venstre
+                svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-30-3, 10,10);
+            }
+
+            if (shedWidth > 4200) {
+                //miderste
+                svg.addRect(boxWidth-30-3, (boxHeight-30)-(shedWidth/10)/2, 10,10);
+                svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-30)-(shedWidth/10)/2, 10,10);
+            }
+
+
+            /*if (shedWidth > 4200) {
+
+                if (shedWidth < (carportWidth - udhaengSum)) {
+
+                    //øverste højre
+                    svg.addRect(boxWidth-30-3, (boxHeight-35)-shedWidth/10, 10,10);
+
+                    //øverste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-35)-shedWidth/10, 10,10);
+
+                    //nederste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-35-3, 10,10);
+
+                    //miderste
+                    svg.addRect(boxWidth-30-3, (boxHeight-35)-(shedWidth/10)/2, 10,10);
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-35)-(shedWidth/10)/2, 10,10);
+
+                } else if (shedWidth == carportWidth - udhaengSum) {
+
+                    //øverste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight+2)-shedWidth/10, 10,10);
+
+                    //nederste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-35-3, 10,10);
+
+                    //miderste
+                    svg.addRect(boxWidth-30-3, (boxHeight-35)-(shedWidth/10)/2, 10,10);
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-35)-(shedWidth/10)/2, 10,10);
+
+                }
+
+            } else {
+
+                if (shedWidth < (carportWidth - udhaengSum)) {
+
+                    //øverste højre
+                    svg.addRect(boxWidth-30-3, (boxHeight-35)-shedWidth/10, 10,10);
+
+                    //øverste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight-35)-shedWidth/10, 10,10);
+
+                    //nederste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-35-3, 10,10);
+
+                } else if (shedWidth == carportWidth - udhaengSum) {
+
+                    //øverste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, (boxHeight+2)-shedWidth/10, 10,10);
+
+                    //nederste venstre
+                    svg.addRect((boxWidth-30-3)-shedLength/10, boxHeight-35-3, 10,10);
+
+                }
+
+            }*/
         }
 
 
@@ -69,6 +167,7 @@ public class SVGCommand extends CommandUnprotectedPage{
         svg.addRect(boxWidth-3,0,boxHeight,3);
 
         double interval = 300;
+        int intervalInt = (int) interval/10;
 
         double length = carportLength-interval;
 
@@ -76,10 +175,28 @@ public class SVGCommand extends CommandUnprotectedPage{
 
         double x = interval/10;
 
+        double prevX = 0;
+        double lineY = -25;
+
+        svg.addLine(0,lineY+15,0,lineY-15);
+        svg.addLine(boxWidth,lineY+15,boxWidth,lineY-15);
+
+        svg.addText((interval/10)/5,lineY-15, String.valueOf(intervalInt));
+
         for (int i = 0; i < amount; i++) {
             svg.addRect(x,0,boxHeight,3);
+
+            svg.addLine(x,lineY+15,x,lineY-15);
+
+            svg.addText(x+((interval/10)/5),lineY-15, String.valueOf(intervalInt));
+
+            prevX = x;
+
             x += interval/10;
         }
+
+        svg.addLine(0,lineY,boxWidth,lineY);
+
 
         //Mållinjer
 

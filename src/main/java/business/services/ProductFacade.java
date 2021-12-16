@@ -22,6 +22,9 @@ public class ProductFacade {
     public static ArrayList<Integer> widthDropdownList = new ArrayList<>();
     public static ArrayList<Integer> lengthDropdownList = new ArrayList<>();
 
+    public static ArrayList<Integer> shedWidthDropdownList = new ArrayList<>();
+    public static ArrayList<Integer> shedLengthDropdownList = new ArrayList<>();
+
     public ProductFacade(Database database)
     {
         productMapper = new ProductMapper(database);
@@ -74,6 +77,10 @@ public class ProductFacade {
 
     public ArrayList<Order> myOrderList(int userId){
         return productMapper.myOrderList(userId);
+    }
+
+    public void deleteOrder(int orderId){
+        productMapper.deleteOrder(orderId);
     }
 
 }

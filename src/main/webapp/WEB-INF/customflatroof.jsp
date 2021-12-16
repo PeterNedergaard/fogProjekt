@@ -51,22 +51,20 @@
 
                     <h5>Redskabsrum bredde</h5>
                     <select style="width: 100%" name="shedwidth" id="shedwidth">
-                        <option value="" disabled selected>Ønsker ikke redskabsrum</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="0">Ønsker ikke redskabsrum</option>
+                        <c:forEach var="shedwidthitem" items="${applicationScope.shedWidthlist}">
+                            <option value="${shedwidthitem}">${shedwidthitem} mm</option>
+                        </c:forEach>
                     </select>
 
                     <br><br>
 
                     <h5>Redskabsrum længde</h5>
                     <select style="width: 100%" name="shedlength" id="shedlength">
-                        <option value="" disabled selected>Ønsker ikke redskabsrum</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="0">Ønsker ikke redskabsrum</option>
+                        <c:forEach var="shedlengthitem" items="${applicationScope.shedLengthlist}">
+                            <option value="${shedlengthitem}">${shedlengthitem} mm</option>
+                        </c:forEach>
                     </select>
 
                     <br><br><br>

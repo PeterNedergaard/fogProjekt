@@ -26,7 +26,17 @@ public class ViewInfoCommand extends CommandProtectedPage {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int selectedId = Integer.parseInt(request.getParameter("selectedid"));
+        String selectedId = request.getParameter("selectedid");
+        String deleteId = request.getParameter("deleteid");
+        int actionId;
+
+        if (selectedId != null){
+            actionId = Integer.parseInt(selectedId);
+        } else {
+            actionId = Integer.parseInt(deleteId);
+        }
+
+
         String strSumPrice;
         double totalSum = 0;
         User orderUser = null;
@@ -35,13 +45,20 @@ public class ViewInfoCommand extends CommandProtectedPage {
         SVG svg;
         String coveragePercentage = request.getParameter("coverage");
 
+
         if (coveragePercentage == null){
             coveragePercentage = "80";
         }
 
 
         ArrayList<Order> orderList = (ArrayList<Order>) request.getServletContext().getAttribute("orderslist");
-        Order orderToShow = orderList.get(selectedId);
+        Order orderToShow = orderList.get(actionId);
+
+        if(deleteId != null){
+            productFacade.deleteOrder(orderToShow.getId());
+
+            return REDIRECT_INDICATOR + "vieworderscommand";
+        }
 
         customProduct = productFacade.getCustomProductById(orderToShow.getProductId());
 
@@ -51,8 +68,7 @@ public class ViewInfoCommand extends CommandProtectedPage {
             }
         }
 
-        materialList = calculatorFacade.calcCarport(customProduct.getWidth(), customProduct.getLength());
-
+        materialList = calculatorFacade.calcCarport(customProduct.getWidth(), customProduct.getLength(),customProduct.getShedWidth(), customProduct.getShedLength());
 
         for (WorkableMaterial wm : materialList) {
             totalSum += wm.getTotalPrice();

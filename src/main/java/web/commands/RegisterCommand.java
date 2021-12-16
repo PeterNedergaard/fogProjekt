@@ -32,14 +32,9 @@ public class RegisterCommand extends CommandUnprotectedPage
         String houseNum = request.getParameter("housenum");
 
 
-        if (password1.equals(password2))
-        {
+        if (password1.equals(password2)) {
             User user = userFacade.createUser(email, password1, telephone, zipcode, city, street, houseNum);
-            /*HttpSession session = request.getSession();
 
-            session.setAttribute("email", email);
-            session.setAttribute("user", user);
-            session.setAttribute("role", user.getRole());*/
             return "loginpage";
         }
         else

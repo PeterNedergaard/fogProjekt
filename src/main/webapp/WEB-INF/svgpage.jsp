@@ -17,8 +17,9 @@
 
         <div>
             <h3>SVG tegning:</h3>
-
-            ${applicationScope.svgdrawing}
+            <div style="width: 500px; height: 400px">
+                ${applicationScope.svgdrawing}
+            </div>
         </div>
 
     </jsp:body>

@@ -18,7 +18,7 @@ public class CalculatorMapper {
         materialFacade = new MaterialFacade(database);
     }
 
-    public ArrayList<WorkableMaterial> calcCarport(int carportWidth, int carportLength) {
+    public ArrayList<WorkableMaterial> calcCarport(int carportWidth, int carportLength, int shedWidth, int shedLength) {
 
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class CalculatorMapper {
         sortedListOfMaterials.sort(Comparator.comparingInt(WorkableMaterial::getLength));
 
 
-        listOfMaterials.addAll(calcPosts(carportWidth,carportLength, sortedListOfMaterials));
+        listOfMaterials.addAll(calcPosts(carportWidth,carportLength, shedWidth, shedLength, sortedListOfMaterials));
 
         listOfMaterials.addAll(calcSpaer(carportWidth,carportLength,sortedListOfMaterials));
 
@@ -40,6 +40,8 @@ public class CalculatorMapper {
 
         listOfMaterials.addAll(calcOverStern(carportWidth,carportLength,sortedListOfMaterials));
 
+        listOfMaterials.addAll(calcShedCladding(shedWidth,shedLength,sortedListOfMaterials));
+
         MaterialFacade.workableMaterialList.clear();
         materialFacade.initWorkableMaterialLists();
 
@@ -47,25 +49,53 @@ public class CalculatorMapper {
     }
 
 
-    public ArrayList<WorkableMaterial> calcPosts(int carportWidth, int carportLength, ArrayList<WorkableMaterial> sortedListOfMaterials) {
+    public ArrayList<WorkableMaterial> calcPosts(int carportWidth, int carportLength, int shedWidth, int shedLength, ArrayList<WorkableMaterial> sortedListOfMaterials) {
+
         int numbOfPosts;
+        int udhaengSum = 300;
 
         WorkableMaterial materialToAdd = null;
 
         for (WorkableMaterial wm : sortedListOfMaterials) {
-            if (wm.getName().equals("trykimp. stolpe")){
-                materialToAdd = wm;
-                break;
+            if (wm.getName().equals("trykimp. stolpe")) {
+                materialToAdd = new WorkableMaterial(wm.getName(),wm.getType(),wm.getLength(),wm.getWidth(),wm.getHeight(), wm.getPrice());
+                materialToAdd.setId(wm.getId());
             }
         }
 
+
         ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
 
+        //Stolper til carporten
         if (carportLength < 4200) {
             numbOfPosts = 4;
         } else {
             numbOfPosts = 6;
         }
+
+
+        //Stolper til redsskabsskuret
+        if (shedWidth > 0 || shedLength > 0) {
+
+            if (shedWidth > 4200) {
+
+                if (shedWidth < (carportWidth - udhaengSum)) {
+                    numbOfPosts += 5;
+                } else if (shedWidth == carportWidth - udhaengSum) {
+                    numbOfPosts += 4;
+                }
+
+            } else {
+
+                if (shedWidth < (carportWidth - udhaengSum)) {
+                    numbOfPosts += 3;
+                } else if (shedWidth == carportWidth - udhaengSum) {
+                    numbOfPosts += 2;
+                }
+
+            }
+        }
+
 
         for (int i = 0; i < numbOfPosts; i++) {
 
@@ -435,5 +465,49 @@ public class CalculatorMapper {
         return listOfMaterials;
     }
 
+
+    public ArrayList<WorkableMaterial> calcShedCladding(int shedWidth, int shedLength, ArrayList<WorkableMaterial> sortedListOfMaterials){
+
+        ArrayList<WorkableMaterial> listOfMaterials = new ArrayList<>();
+
+        if (shedWidth > 0 || shedLength > 0) {
+
+            WorkableMaterial materialToAdd = null;
+
+            int amount;
+            int surfacePercent = 74;
+            int surfaceLength = ((shedWidth * 2) + (shedLength * 2));
+
+            for (WorkableMaterial wm : sortedListOfMaterials) {
+                if (wm.getName().equals("trykimp.braet") && wm.getHeight() == 19 && wm.getWidth() == 100 && wm.getLength() == 2100) {
+                    materialToAdd = wm;
+                }
+            }
+
+            amount = surfaceLength / surfacePercent;
+
+
+            for (int i = 0; i < amount; i++) {
+
+                //If list already contains the material to add. Add to amount
+                if (listOfMaterials.contains(materialToAdd)) {
+                    for (WorkableMaterial wm : listOfMaterials) {
+                        if (wm.equals(materialToAdd)) {
+                            wm.setAmount(wm.getAmount() + 1);
+                            wm.setTotalPrice(wm.getTotalPrice() + wm.getPrice());
+                        }
+                    }
+                } else {
+                    materialToAdd.setDescription("Til beklædning af skur");
+                    materialToAdd.setAmount(materialToAdd.getAmount() + 1);
+                    materialToAdd.setTotalPrice(materialToAdd.getPrice());
+                    listOfMaterials.add(materialToAdd);
+                }
+
+            }
+        }
+
+        return listOfMaterials;
+    }
 
 }

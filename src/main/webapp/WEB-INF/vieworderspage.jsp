@@ -24,6 +24,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Status</th>
                         <th scope="col">Info</th>
+                        <th scope="col">Slet</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,11 @@
                             <td>
                                 <button type="submit" name="selectedid" value="${loop.index}" class="btn btn-info">
                                     Se ordre
+                                </button>
+                            </td>
+                            <td>
+                                <button type="submit" name="deleteid" value="${loop.index}" class="btn btn-danger">
+                                    Slet ordre
                                 </button>
                             </td>
                         </tr>

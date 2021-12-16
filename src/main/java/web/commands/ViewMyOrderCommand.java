@@ -37,7 +37,7 @@ public class ViewMyOrderCommand extends CommandProtectedPage{
 
         customProduct = productFacade.getCustomProductById(selectedOrder.getProductId());
 
-        materialList = calculatorFacade.calcCarport(customProduct.getWidth(), customProduct.getLength());
+        materialList = calculatorFacade.calcCarport(customProduct.getWidth(), customProduct.getLength(),customProduct.getShedWidth(), customProduct.getShedLength());
 
         for (WorkableMaterial wm : materialList) {
             totalSum += wm.getTotalPrice();

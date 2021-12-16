@@ -107,11 +107,12 @@ public class ProductMapper {
 
         for (int i = startValue; i <= 6000; i+=300) {
             ProductFacade.widthDropdownList.add(i);
-            System.out.println(i);
+            ProductFacade.shedWidthDropdownList.add(i-300);
         }
 
         for (int i = startValue; i <= 7800; i+=300) {
             ProductFacade.lengthDropdownList.add(i);
+            ProductFacade.shedLengthDropdownList.add(i-300);
         }
 
     }
@@ -120,15 +121,25 @@ public class ProductMapper {
     public void sendCustomRequest(CustomProduct customproduct){
 
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO custom_products (product_length, product_width, roof_type, roof_material) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO custom_products (product_length, product_width, roof_type, roof_material, shed_length, shed_width) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, customproduct.getLength());
                 ps.setInt(2, customproduct.getWidth());
                 ps.setString(3, customproduct.getRoofType());
                 ps.setString(4, customproduct.getRoofMaterial());
+                ps.setInt(5, customproduct.getShedLength());
+                ps.setInt(6, customproduct.getShedWidth());
 
                 ps.executeUpdate();
+
+                ResultSet ids = ps.getGeneratedKeys();
+                ids.next();
+                int id = ids.getInt(1);
+
+                Order order = new Order(id, "custom", UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(), "Awaits offer");
+
+                addProductToDb(order);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -136,12 +147,6 @@ public class ProductMapper {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        int hej = getLatestCustomId();
-
-        Order order = new Order(hej, "custom", UserFacade.currentUser.getId(), UserFacade.currentUser.getOrderId(), "Awaits offer");
-
-        addProductToDb(order);
 
     }
 
@@ -252,11 +257,15 @@ public class ProductMapper {
                     int productWidth = rs.getInt("product_width");
                     String roofType = rs.getString("roof_type");
                     String roofMaterial = rs.getString("roof_material");
+                    int shedLength = rs.getInt("shed_length");
+                    int shedWidth = rs.getInt("shed_width");
                     int price = rs.getInt("product_price");
 
                     CustomProduct tempProduct = new CustomProduct(productLength, productWidth,roofType,roofMaterial);
                     tempProduct.setId(id);
                     tempProduct.setPrice(price);
+                    tempProduct.setShedLength(shedLength);
+                    tempProduct.setShedWidth(shedWidth);
 
                     customProduct = tempProduct;
                 }
@@ -348,6 +357,27 @@ public class ProductMapper {
         }
 
         return orderList;
+    }
+
+
+    public void deleteOrder(int orderId){
+
+        try (Connection connection = database.connect()) {
+            String sql = "DELETE FROM orders WHERE idorders=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+                ps.setInt(1, orderId);
+
+                ps.executeUpdate();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
 

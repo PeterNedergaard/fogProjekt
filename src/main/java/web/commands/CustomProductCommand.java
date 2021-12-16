@@ -25,6 +25,9 @@ public class CustomProductCommand extends CommandProtectedPage {
         request.getServletContext().setAttribute("widthlist", ProductFacade.widthDropdownList);
         request.getServletContext().setAttribute("lengthlist", ProductFacade.lengthDropdownList);
 
+        request.getServletContext().setAttribute("shedWidthlist", ProductFacade.shedWidthDropdownList);
+        request.getServletContext().setAttribute("shedLengthlist", ProductFacade.shedLengthDropdownList);
+
 
         if (roofType.equals("flat")) {
 

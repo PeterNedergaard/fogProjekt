@@ -7,6 +7,8 @@ public class CustomProduct {
     private int width;
     private String roofType;
     private String roofMaterial;
+    private int shedLength;
+    private int shedWidth;
     private int price;
 
     public CustomProduct(int length, int width, String roofType, String roofMaterial) {
@@ -16,6 +18,21 @@ public class CustomProduct {
         this.roofMaterial = roofMaterial;
     }
 
+    public int getShedLength() {
+        return shedLength;
+    }
+
+    public void setShedLength(int shedLength) {
+        this.shedLength = shedLength;
+    }
+
+    public int getShedWidth() {
+        return shedWidth;
+    }
+
+    public void setShedWidth(int shedWidth) {
+        this.shedWidth = shedWidth;
+    }
 
     public int getId() {
         return id;
