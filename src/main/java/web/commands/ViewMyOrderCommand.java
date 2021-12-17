@@ -45,7 +45,7 @@ public class ViewMyOrderCommand extends CommandProtectedPage{
 
         strSumPrice = String.format("%.2f", totalSum);
 
-        svg = svgFacade.getSVGdrawing(customProduct.getWidth(), customProduct.getLength());
+        svg = svgFacade.getSVGdrawing(customProduct.getWidth(), customProduct.getLength(), customProduct.getShedWidth(), customProduct.getShedLength());
 
 
 

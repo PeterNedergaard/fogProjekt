@@ -72,12 +72,21 @@
                         <br><br>
 
 
-                        <h5>Mål:</h5>
+                        <h5>Carport mål:</h5>
                         <b><span>Længde: </span></b> ${applicationScope.customproduct.length} mm
                         <br>
-                        <b><span>Bredde: </span></b>${applicationScope.customproduct.width} mm
+                        <b><span>Bredde: </span></b> ${applicationScope.customproduct.width} mm
 
                         <br><br>
+
+                        <c:if test="${applicationScope.customproduct.shedLength > 0}">
+                            <h5>Redskabsskur mål:</h5>
+                            <b><span>Længde: </span></b> ${applicationScope.customproduct.shedLength} mm
+                            <br>
+                            <b><span>Bredde: </span></b> ${applicationScope.customproduct.shedWidth} mm
+
+                            <br><br>
+                        </c:if>
 
                         <h5>Tag:</h5>
                         <b><span>Tagtype: </span></b>${applicationScope.customproduct.roofType}
@@ -89,9 +98,9 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-6">
+                <div class="col-10">
                     <div style="border-color: #cfcfcf; border-style: solid;
-                            border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px; padding: 12px">
+                            border-width: 1px; background-color: #e6e6e6; margin-bottom: 12px; padding: 12px; height: 430px">
                             ${applicationScope.svgdrawing}
                     </div>
                 </div>

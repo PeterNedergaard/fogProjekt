@@ -17,7 +17,7 @@
 
         <div>
             <h3>SVG tegning:</h3>
-            <div style="width: 500px; height: 400px">
+            <div style="height: 300px">
                 ${applicationScope.svgdrawing}
             </div>
         </div>

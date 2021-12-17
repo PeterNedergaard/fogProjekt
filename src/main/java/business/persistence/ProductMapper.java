@@ -103,16 +103,23 @@ public class ProductMapper {
 
     public void initWidthAndLengthLists(){
 
-        int startValue = 2400;
+        if (ProductFacade.widthDropdownList.size() < 1 || ProductFacade.shedWidthDropdownList.size() < 1) {
 
-        for (int i = startValue; i <= 6000; i+=300) {
-            ProductFacade.widthDropdownList.add(i);
-            ProductFacade.shedWidthDropdownList.add(i-300);
-        }
+            ProductFacade.shedLengthDropdownList.add(1500);
+            ProductFacade.shedLengthDropdownList.add(1800);
+            ProductFacade.shedLengthDropdownList.add(2100);
 
-        for (int i = startValue; i <= 7800; i+=300) {
-            ProductFacade.lengthDropdownList.add(i);
-            ProductFacade.shedLengthDropdownList.add(i-300);
+            int startValue = 2400;
+
+            for (int i = startValue; i <= 6000; i += 300) {
+                ProductFacade.widthDropdownList.add(i);
+                ProductFacade.shedWidthDropdownList.add(i - 300);
+            }
+
+            for (int i = startValue; i <= 7800; i += 300) {
+                ProductFacade.lengthDropdownList.add(i);
+                ProductFacade.shedLengthDropdownList.add(i - 300);
+            }
         }
 
     }

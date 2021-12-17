@@ -76,7 +76,7 @@ public class ViewInfoCommand extends CommandProtectedPage {
 
         strSumPrice = String.format("%.2f", totalSum);
 
-        svg = svgFacade.getSVGdrawing(customProduct.getWidth(), customProduct.getLength());
+        svg = svgFacade.getSVGdrawing(customProduct.getWidth(), customProduct.getLength(), customProduct.getShedWidth(), customProduct.getShedLength());
 
         request.getServletContext().setAttribute("productprice", customProduct.getPrice());
         request.getServletContext().setAttribute("orderstatus", orderToShow.getStatus());

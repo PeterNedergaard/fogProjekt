@@ -12,8 +12,8 @@ public class SVGFacade {
         svgMapper = new SVGMapper(database);
     }
 
-    public SVG getSVGdrawing(int carportWidth, int carportLength){
-        return svgMapper.getSVGdrawing(carportWidth,carportLength);
+    public SVG getSVGdrawing(int carportWidth, int carportLength, int shedWidth, int shedLength){
+        return svgMapper.getSVGdrawing(carportWidth,carportLength,shedWidth,shedLength);
     }
 
 }
